@@ -19,7 +19,7 @@ public class KeepAliveScheduler {
         try {
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(new URI("http://fecatolica.onrender.com/api/keepalive"))
+                    .uri(new URI("https://couxchiken.onrender.com/api/keepalive"))
                     .GET()
                     .build();
             client.send(request, HttpResponse.BodyHandlers.ofString());

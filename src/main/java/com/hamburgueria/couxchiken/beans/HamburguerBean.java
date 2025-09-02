@@ -10,6 +10,8 @@ import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
 import java.io.Serializable;
 import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
@@ -85,9 +87,13 @@ public class HamburguerBean implements Serializable {
     }
 
     public String aberto() {
-        LocalTime agora = LocalTime.now();
+        // Define o fuso horário de São Paulo (Brasília)
+        ZoneId fusoBrasil = ZoneId.of("America/Sao_Paulo");
 
-        LocalTime abertura = LocalTime.of(18, 30);  // 18:30
+        // Pega a hora atual nesse fuso
+        LocalTime agora = ZonedDateTime.now(fusoBrasil).toLocalTime();
+
+        LocalTime abertura = LocalTime.of(18, 30);   // 18:30
         LocalTime fechamento = LocalTime.of(23, 30); // 23:30
 
         if (!agora.isBefore(abertura) && agora.isBefore(fechamento)) {
