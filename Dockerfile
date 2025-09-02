@@ -12,14 +12,8 @@ RUN mvn dependency:go-offline
 COPY src ./src
 COPY src/main/webapp/WEB-INF/web.xml ./src/main/webapp/WEB-INF/web.xml
 
-# Ajusta permissões
-RUN chmod -R 755 /app
-
 # Compila o projeto e gera o WAR com logs detalhados
 RUN mvn clean package -DskipTests -X
-
-# Lista os arquivos gerados
-RUN ls -l /app/target
 
 # -----------------------------
 # Etapa 2: Deploy no WildFly 36.0.1.Final
@@ -35,9 +29,6 @@ RUN curl -LO https://github.com/wildfly/wildfly/releases/download/36.0.1.Final/w
 
 # Copia o WAR gerado para a pasta de deploy do WildFly
 COPY --from=build /app/target/*.war /opt/wildfly/standalone/deployments/ROOT.war
-
-# Cria usuário administrativo (opcional, para console)
-RUN /opt/wildfly/bin/add-user.sh admin Admin#123 --silent
 
 # Expõe a porta da aplicação
 EXPOSE 8080
