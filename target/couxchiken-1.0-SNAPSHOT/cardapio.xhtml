@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <title>Coux Chicken - Cardápio</title>
+
+        <style>
+            /* ===== Cabeçalho ===== */
+            .header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 15px 30px;
+                background-color: #f8f8f8;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+                font-family: Arial, sans-serif;
+            }
+
+            .header-left {
+                display: flex;
+                align-items: center;
+            }
+
+            .nome-restaurante {
+                font-size: 1.5rem;
+                font-weight: bold;
+                color: #333;
+            }
+
+            .header-center {
+                display: flex;
+                gap: 30px;
+                align-items: center;
+            }
+
+            .header-center .info {
+                display: flex;
+                align-items: center;
+                font-size: 1rem;
+                color: #555;
+            }
+
+            .header-center .info i {
+                margin-right: 8px;
+                color: #e53935;
+                font-size: 1.2rem;
+            }
+
+            /* ===== Barra de Categorias ===== */
+            .categorias {
+                display: flex;
+                justify-content: center;
+                gap: 15px;
+                margin: 20px 0;
+            }
+
+            .cat-btn {
+                background-color: #e53935;
+                color: #fff !important;
+                border-radius: 8px;
+                padding: 10px 20px;
+                font-weight: bold;
+                transition: 0.2s;
+            }
+
+            .cat-btn:hover {
+                background-color: #d32f2f;
+                transform: translateY(-2px);
+            }
+
+            /* ===== Corpo da Página ===== */
+            body {
+                background-color: #f4f6f8;
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+            }
+
+            .container {
+                max-width: 1100px;
+                margin: auto;
+                padding: 20px;
+            }
+
+            h2 {
+                text-align: center;
+                margin: 10px 0;
+                font-size: 28px;
+                color: #333;
+            }
+
+            .subtitulo {
+                text-align: center;
+                font-size: 15px;
+                color: #666;
+                margin-bottom: 30px;
+            }
+
+            .p-card {
+                border-radius: 12px;
+                box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+                transition: transform 0.2s;
+                background: #fff;
+                text-align: left;
+            }
+
+            .p-card:hover {
+                transform: translateY(-5px);
+            }
+
+            .p-card .p-card-title {
+                font-size: 18px;
+                font-weight: bold;
+                color: #333;
+            }
+
+            .descricao {
+                font-size: 14px;
+                color: #555;
+                margin: 10px 0;
+                min-height: 45px;
+            }
+
+            .preco {
+                font-size: 16px;
+                font-weight: bold;
+                color: #d32f2f;
+                margin-top: 10px;
+            }
+
+            /* ===== Responsividade ===== */
+            @media (max-width: 768px) {
+                .header {
+                    flex-direction: column;
+                    gap: 10px;
+                }
+                .header-center {
+                    flex-direction: column;
+                    gap: 8px;
+                }
+                .categorias {
+                    flex-direction: column;
+                    gap: 10px;
+                }
+            }
+
+            .whatsapp-link {
+                color: #333;
+                text-decoration: none;
+                display: flex;
+                align-items: center;
+                gap: 5px;
+            }
+
+            .whatsapp-link:hover {
+                color: #128C7E;
+                text-decoration: none;
+            }
+        </style>
+    </h:head>
+
+    <h:body>
+        <!-- ===== Cabeçalho ===== -->
+        <div class="header">
+            <div class="header-left">
+                <h:graphicImage value="imagens/logo.png" alt="Logo" style="height:50px;
+                                margin-right:15px;" />
+                <span class="nome-restaurante">Coux Chicken</span>
+            </div>
+
+            <div class="header-center">
+                <h:panelGroup id="abertoDiv">
+                    <div class="info">
+                        <i class="pi pi-clock"></i>
+                        <span>#{hamburguerBean.aberto()}</span>
+                    </div>
+                </h:panelGroup>
+                <p:poll interval="60" update="abertoDiv" />
+
+                <div class="info">
+                    Faça seu pedido:&#160;&#160;
+                    <a href="https://wa.me/5584994537999" target="_blank">
+                        <i class="pi pi-whatsapp"></i>+55 (84) 99453-7999
+                    </a>
+                </div>
+                <div class="info">
+                    <i class="pi pi-map-marker"></i>
+                    <span>Rua Leda Mouzinho Quiosque 2, Nova Cruz</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== Formulário para categorias e produtos ===== -->
+        <h:form id="formCardapio">
+
+            <!-- ===== Barra de Categorias ===== -->
+            <div class="categorias" style="text-align:center;
+                 margin-bottom:20px;">
+                <p:commandButton value="Hambúrgueres"
+                                 action="#{hamburguerBean.filtrarCategoria}"
+                                 styleClass="cat-btn"
+                                 process="@this"
+                                 update="@form">
+                    <f:setPropertyActionListener target="#{hamburguerBean.categoria}" value="hamburgueres"/>
+                </p:commandButton>
+
+                <p:commandButton value="Bebidas"
+                                 action="#{hamburguerBean.filtrarCategoria}"
+                                 styleClass="cat-btn"
+                                 process="@this"
+                                 update="@form">
+                    <f:setPropertyActionListener target="#{hamburguerBean.categoria}" value="bebidas"/>
+                </p:commandButton>
+
+                <p:commandButton value="Sobremesas"
+                                 action="#{hamburguerBean.filtrarCategoria}"
+                                 styleClass="cat-btn"
+                                 process="@this"
+                                 update="@form">
+                    <f:setPropertyActionListener target="#{hamburguerBean.categoria}" value="sobremesas"/>
+                </p:commandButton>
+
+                <p:commandButton value="Combos"
+                                 action="#{hamburguerBean.filtrarCategoria}"
+                                 styleClass="cat-btn"
+                                 process="@this"
+                                 update="@form">
+                    <f:setPropertyActionListener target="#{hamburguerBean.categoria}" value="combos"/>
+                </p:commandButton>
+            </div>
+
+            <!-- ===== Produtos ===== -->
+            <div class="container">
+                <h2>Produtos</h2>
+                <h:form rendered="#{hamburguerBean.hamburguer}">
+                    <div class="subtitulo">
+                        Nossos produtos são feitos diariamente com ingredientes frescos e selecionados.
+                    </div>
+                    <p:dataView id="dvProdutos" value="#{hamburguerBean.hamburgueres}" var="p"
+                                layout="grid" rows="9" paginator="true">
+                        <p:dataViewGridItem>
+                            <p:card style="width: 300px;
+                                    margin: auto;">
+                                <h:graphicImage value="#{p.imagem}" 
+                                                style="width:100%;
+                                                height:180px;
+                                                object-fit:cover;
+                                                border-radius: 10px 10px 0 0;" />
+                                <f:facet name="title">
+                                    <h:outputText value="#{p.nome}" />
+                                </f:facet>
+                                <div class="descricao">
+                                    <h:outputText value="#{p.descricao}" />
+                                </div>
+                                <div class="preco">
+                                    <h:outputText value="A partir de: " style="color: #333;"/> R$ #{p.preco}
+                                </div>
+                            </p:card>
+                        </p:dataViewGridItem>
+                    </p:dataView>
+                </h:form>
+
+                <h:form rendered="#{hamburguerBean.bebida}">
+                    <div class="subtitulo">
+                        Nossos produtos são feitos diariamente com ingredientes frescos e selecionados.
+                    </div>
+                    <p:dataView id="dvProdutos" value="#{hamburguerBean.bebidas}" var="p"
+                                layout="grid" rows="9" paginator="true">
+                        <p:dataViewGridItem>
+                            <p:card style="width: 300px;
+                                    margin: auto;">
+                                <h:graphicImage value="#{p.imagem}" 
+                                                style="width:100%;
+                                                height:180px;
+                                                object-fit:cover;
+                                                border-radius: 10px 10px 0 0;" />
+                                <f:facet name="title">
+                                    <h:outputText value="#{p.nome}" />
+                                </f:facet>
+                                <div class="descricao">
+                                    <h:outputText value="#{p.descricao}" />
+                                </div>
+                                <div class="preco">
+                                    <h:outputText value="A partir de: " style="color: #333;"/> R$ #{p.preco}
+                                </div>
+                            </p:card>
+                        </p:dataViewGridItem>
+                    </p:dataView>
+                </h:form>
+
+                <h:form rendered="#{hamburguerBean.sobremesa}">
+                    <div class="subtitulo">
+                        Nossos produtos são feitos diariamente com ingredientes frescos e selecionados.
+                    </div>
+                    <p:dataView id="dvProdutos" value="#{hamburguerBean.sobremesas}" var="p"
+                                layout="grid" rows="9" paginator="true">
+                        <p:dataViewGridItem>
+                            <p:card style="width: 300px;
+                                    margin: auto;">
+                                <h:graphicImage value="#{p.imagem}" 
+                                                style="width:100%;
+                                                height:180px;
+                                                object-fit:cover;
+                                                border-radius: 10px 10px 0 0;" />
+                                <f:facet name="title">
+                                    <h:outputText value="#{p.nome}" />
+                                </f:facet>
+                                <div class="descricao">
+                                    <h:outputText value="#{p.descricao}" />
+                                </div>
+                                <div class="preco">
+                                    <h:outputText value="A partir de: " style="color: #333;"/> R$ #{p.preco}
+                                </div>
+                            </p:card>
+                        </p:dataViewGridItem>
+                    </p:dataView>
+                </h:form>
+
+                <h:form rendered="#{hamburguerBean.combo}">
+                    <div class="subtitulo">
+                        Nossos produtos são feitos diariamente com ingredientes frescos e selecionados.
+                    </div>
+                    <p:dataView id="dvProdutos" value="#{hamburguerBean.combos}" var="p"
+                                layout="grid" rows="9" paginator="true">
+                        <p:dataViewGridItem>
+                            <p:card style="width: 300px;
+                                    margin: auto;">
+                                <h:graphicImage value="#{p.imagem}" 
+                                                style="width:100%;
+                                                height:180px;
+                                                object-fit:cover;
+                                                border-radius: 10px 10px 0 0;" />
+                                <f:facet name="title">
+                                    <h:outputText value="#{p.nome}" />
+                                </f:facet>
+                                <div class="descricao">
+                                    <h:outputText value="#{p.descricao}" />
+                                </div>
+                                <div class="preco">
+                                    <h:outputText value="A partir de: " style="color: #333;"/> R$ #{p.preco}
+                                </div>
+                            </p:card>
+                        </p:dataViewGridItem>
+                    </p:dataView>
+                </h:form>
+            </div>
+
+        </h:form>
+        <!-- Rodapé -->
+        <footer id="footer" style="text-align:center; padding:20px; background:#f9f9f9;">
+            <!-- Desenvolvedor -->
+            <div style="margin-top:10px; color:#bbb; font-size:0.9rem;">
+                Desenvolvido por <strong>FS Tech</strong>
+            </div>
+
+            <!-- Contato final -->
+            <div style="margin-top:8px;">
+                <i class="pi pi-whatsapp" style="color:#25D366;"></i>
+                <a href="https://wa.me/5584999937274?text=Ol%C3%A1,%20gostaria%20de%20saber%20mais%20sobre%20seu%20trabalho."
+                   target="_blank"
+                   style="text-decoration:none; color:#25D366; margin-left:5px; font-weight:bold;">
+                    +55 (84) 99993-7274
+                </a>
+            </div>
+        </footer>
+
+    </h:body>
+</html>

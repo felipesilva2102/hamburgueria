@@ -1,0 +1,8 @@
+com\hamburgueria\couxchiken\config\KeepAliveScheduler.class
+com\hamburgueria\couxchiken\construtores\Bebidas.class
+com\hamburgueria\couxchiken\JakartaRestConfiguration.class
+com\hamburgueria\couxchiken\config\KeepAliveResource.class
+com\hamburgueria\couxchiken\config\RestApplication.class
+com\hamburgueria\couxchiken\beans\HamburguerBean.class
+com\hamburgueria\couxchiken\construtores\Material.class
+com\hamburgueria\couxchiken\resources\JakartaEE11Resource.class
