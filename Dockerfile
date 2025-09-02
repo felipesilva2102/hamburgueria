@@ -1,27 +1,46 @@
-# Etapa 1: Build do WAR usando Maven
-FROM maven:3.9.8-eclipse-temurin-21 AS build
-
-# Diretório de trabalho dentro do container
+# -----------------------------
+# Etapa 1: Build da aplicação com Maven (Java 21)
+# -----------------------------
+FROM maven:3.9.9-eclipse-temurin-21 AS build
 WORKDIR /app
 
-# Copiar arquivos do projeto Maven
+# Copia o pom.xml e baixa dependências offline
 COPY pom.xml .
+RUN mvn dependency:go-offline
+
+# Copia o código-fonte
 COPY src ./src
+COPY src/main/webapp/WEB-INF/web.xml ./src/main/webapp/WEB-INF/web.xml
 
-# Build do WAR
-RUN mvn clean package -DskipTests
+# Ajusta permissões
+RUN chmod -R 755 /app
 
-# Etapa 2: Container final com Tomcat
-FROM tomcat:10.1.24-jdk21
+# Compila o projeto e gera o WAR com logs detalhados
+RUN mvn clean package -DskipTests -X
 
-# Limpar aplicações padrão do Tomcat
-RUN rm -rf /usr/local/tomcat/webapps/*
+# Lista os arquivos gerados
+RUN ls -l /app/target
 
-# Copiar WAR da etapa de build
-COPY --from=build /app/target/santo-terco-1.0-SNAPSHOT.war /usr/local/tomcat/webapps/ROOT.war
+# -----------------------------
+# Etapa 2: Deploy no WildFly 36.0.1.Final
+# -----------------------------
+FROM eclipse-temurin:21-jdk
+WORKDIR /opt
 
-# Expor porta padrão do Tomcat
+# Baixa e extrai WildFly 36.0.1.Final
+RUN curl -LO https://github.com/wildfly/wildfly/releases/download/36.0.1.Final/wildfly-36.0.1.Final.tar.gz \
+    && tar xvf wildfly-36.0.1.Final.tar.gz \
+    && mv wildfly-36.0.1.Final wildfly \
+    && rm wildfly-36.0.1.Final.tar.gz
+
+# Copia o WAR gerado para a pasta de deploy do WildFly
+COPY --from=build /app/target/*.war /opt/wildfly/standalone/deployments/ROOT.war
+
+# Cria usuário administrativo (opcional, para console)
+RUN /opt/wildfly/bin/add-user.sh admin Admin#123 --silent
+
+# Expõe a porta da aplicação
 EXPOSE 8080
 
-# Rodar Tomcat em primeiro plano
-CMD ["catalina.sh", "run"]
+# Inicia o WildFly
+CMD ["/opt/wildfly/bin/standalone.sh", "-b", "0.0.0.0", "-bmanagement", "0.0.0.0"]
