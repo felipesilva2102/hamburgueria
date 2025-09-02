@@ -59,14 +59,14 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <version>3.3.2</version>
             </plugin>
-            <!-- Execute 'mvn clean package wildfly:dev' to run the application. -->
             <plugin>
-                <groupId>org.wildfly.plugins</groupId>
-                <artifactId>wildfly-maven-plugin</artifactId>
-                <version>5.0.1.Final</version>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
                 <configuration>
-                    <version>${wildfly.version}</version>
-                    <server-config>standalone.xml</server-config>
+                    <url>http://localhost:8080/manager/text</url>
+                    <server>TomcatServer</server>
+                    <path>/minhaapp</path>
                 </configuration>
             </plugin>
         </plugins>
