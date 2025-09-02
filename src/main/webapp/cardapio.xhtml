@@ -223,12 +223,12 @@
                     <f:setPropertyActionListener target="#{hamburguerBean.categoria}" value="sobremesas"/>
                 </p:commandButton>
 
-                <p:commandButton value="Combos"
+                <p:commandButton value="Pasteis"
                                  action="#{hamburguerBean.filtrarCategoria}"
                                  styleClass="cat-btn"
                                  process="@this"
                                  update="@form">
-                    <f:setPropertyActionListener target="#{hamburguerBean.categoria}" value="combos"/>
+                    <f:setPropertyActionListener target="#{hamburguerBean.categoria}" value="pasteis"/>
                 </p:commandButton>
             </div>
 
@@ -265,7 +265,7 @@
 
                 <h:form rendered="#{hamburguerBean.bebida}">
                     <div class="subtitulo">
-                        Nossos produtos são feitos diariamente com ingredientes frescos e selecionados.
+                        Nossos bebidas são sempre servidas geladinhas para o melhor atendimento para o cliente.
                     </div>
                     <p:dataView id="dvProdutos" value="#{hamburguerBean.bebidas}" var="p"
                                 layout="grid" rows="9" paginator="true">
@@ -319,11 +319,11 @@
                     </p:dataView>
                 </h:form>
 
-                <h:form rendered="#{hamburguerBean.combo}">
+                <h:form rendered="#{hamburguerBean.pastel}">
                     <div class="subtitulo">
-                        Nossos produtos são feitos diariamente com ingredientes frescos e selecionados.
+                        Nossos produtos são feitos diariamente com ingredientes frescos, selecionados e assados na hora.
                     </div>
-                    <p:dataView id="dvProdutos" value="#{hamburguerBean.combos}" var="p"
+                    <p:dataView id="dvProdutos" value="#{hamburguerBean.pasteis}" var="p"
                                 layout="grid" rows="9" paginator="true">
                         <p:dataViewGridItem>
                             <p:card style="width: 300px;

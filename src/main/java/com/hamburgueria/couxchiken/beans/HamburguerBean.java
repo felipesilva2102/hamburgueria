@@ -26,14 +26,14 @@ public class HamburguerBean implements Serializable {
     private transient List<Material> hamburgueres;
     private transient List<Material> bebidas;
     private transient List<Material> sobremesas;
-    private transient List<Material> combos;
+    private transient List<Material> pasteis;
 
     private String categoria;
 
     private boolean hamburguer = true;
     private boolean bebida;
     private boolean sobremesa;
-    private boolean combo;
+    private boolean pastel;
 
     @PostConstruct
     public void init() {
@@ -80,8 +80,8 @@ public class HamburguerBean implements Serializable {
     }
 
     public void preencherCombos() {
-        combos = new ArrayList<>();
-        combos.add(new Material("Clássico", "imagens/teste.jpg", 18.90, "teste"));
+        pasteis = new ArrayList<>();
+        pasteis.add(new Material("Clássico", "imagens/teste.jpg", 18.90, "teste"));
     }
 
     public String aberto() {
@@ -101,32 +101,33 @@ public class HamburguerBean implements Serializable {
         this.hamburguer = true;
         this.bebida = false;
         this.sobremesa = false;
-        this.combo = false;
+        this.pastel = false;
         switch (categoria) {
             case "hamburgueres" -> {
                 hamburguer = true;
                 bebida = false;
                 sobremesa = false;
-                combo = false;
+                pastel = false;
             }
             case "bebidas" -> {
                 hamburguer = false;
                 bebida = true;
                 sobremesa = false;
-                combo = false;
+                pastel = false;
             }
             case "sobremesas" -> {
                 hamburguer = false;
                 bebida = false;
                 sobremesa = true;
-                combo = false;
+                pastel = false;
             }
-            case "combos" -> {
+            case "pasteis" -> {
                 hamburguer = false;
                 bebida = false;
                 sobremesa = false;
-                combo = true;
+                pastel = true;
             }
+
 
         }
     }
