@@ -49,7 +49,6 @@ public class HamburguerBean implements Serializable {
         preencherPasteis();
         preencherCachorroQuente();
         preencherBatatas();
-        //redirecionarCardapio();
     }
 
     public void preencherHamburguer() {
@@ -86,6 +85,15 @@ public class HamburguerBean implements Serializable {
         bebidas.add(new Material("Suco de Uva", "bebidas/uva.jpg", 07.00, "teste"));
         bebidas.add(new Material("Suco de Cajú", "bebidas/caju.jpg", 07.00, "teste"));
         bebidas.add(new Material("Suco de Caja", "bebidas/caja.jpg", 07.00, "teste"));
+        bebidas.add(new Material("Coca Cola Litro", "bebidas/cocacola.jpg", 10.00, "Coca Cola 1 Litro"));
+        bebidas.add(new Material("Coca Cola Sem Açúcar", "bebidas/cocacolaSemAcucar.jpg", 10.00, "Coca Cola sem açúcar 1 Litro"));
+        bebidas.add(new Material("Coca Cola Lata", "bebidas/cocalata.jpg", 06.00, "Refrigerante Lata"));
+        bebidas.add(new Material("Coca Cola Sem Açúcar Lata", "bebidas/cocalatasemacucar.png", 06.00, "Refrigerante Lata"));
+        bebidas.add(new Material("Guarana Litro", "bebidas/guarana.jpg", 10.00, "Guarana 1 Litro"));
+        bebidas.add(new Material("Guarana Lata", "bebidas/guaranalata.jpg", 06.00, "Refrigerante Lata"));
+        bebidas.add(new Material("Fanta Laranja Lata", "bebidas/laranja.jpg", 06.00, "Refrigerante Lata"));
+        bebidas.add(new Material("Pepsi Litro", "bebidas/pepsi.jpg", 10.00, "Pepsi 1 Litro"));
+        bebidas.add(new Material("Sprite Lata", "bebidas/sprite.jpg", 06.00, "Refrigerante Lata"));
     }
 
     public void preencherPasteis() {
@@ -192,9 +200,5 @@ public class HamburguerBean implements Serializable {
     public List<Material> getHamburgueres() {
         return hamburgueres;
     }
-
-//    public String redirecionarCardapio() {
-//        return "cardapio.xhtml?faces-redirect=true";
-//    }
 
 }
