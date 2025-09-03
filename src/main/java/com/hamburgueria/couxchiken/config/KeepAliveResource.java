@@ -5,19 +5,23 @@
 package com.hamburgueria.couxchiken.config;
 
 
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
-import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
-@Path("/keepalive")
-public class KeepAliveResource {
+@WebServlet("/api/keepalive")
+public class KeepAliveResource extends HttpServlet {
 
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public Response keepAlive() {
-        return Response.ok("OK").build();
+    private static final long serialVersionUID = 1L;
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/plain");
+        response.getWriter().write("OK");
     }
 }
 
