@@ -49,7 +49,7 @@ public class HamburguerBean implements Serializable {
         preencherPasteis();
         preencherCachorroQuente();
         preencherBatatas();
-        redirecionarCardapio();
+        //redirecionarCardapio();
     }
 
     public void preencherHamburguer() {
@@ -193,8 +193,8 @@ public class HamburguerBean implements Serializable {
         return hamburgueres;
     }
 
-    public String redirecionarCardapio() {
-        return "cardapio.xhtml?faces-redirect=true";
-    }
+//    public String redirecionarCardapio() {
+//        return "cardapio.xhtml?faces-redirect=true";
+//    }
 
 }
