@@ -1,26 +1,27 @@
-### Etapa 1: Build com Maven (Java 20)
-FROM maven:3.9.9-eclipse-temurin-21 AS build
+# Etapa 1: Build do WAR usando Maven
+FROM maven:3.9.8-eclipse-temurin-21 AS build
+
+# Diretório de trabalho dentro do container
 WORKDIR /app
+
+# Copiar arquivos do projeto Maven
 COPY pom.xml .
 COPY src ./src
+
+# Build do WAR
 RUN mvn clean package -DskipTests
 
-# Variável para a porta dinâmica
-ENV PORT 8080
+# Etapa 2: Container final com Tomcat
+FROM tomcat:10.1.24-jdk21
 
-#### Etapa 2: WildFly + Java 20
-FROM eclipse-temurin:20-jdk
-WORKDIR /opt/jboss
+# Limpar aplicações padrão do Tomcat
+RUN rm -rf /usr/local/tomcat/webapps/*
 
-# Baixa e instala o WildFly 36
-RUN curl -L https://github.com/wildfly/wildfly/releases/download/36.0.1.Final/wildfly-36.0.1.Final.tar.gz \
-    | tar zx && mv wildfly-36.0.1.Final wildfly
+# Copiar WAR da etapa de build
+COPY --from=build /app/target/couxchiken-1.0-SNAPSHOT.war /usr/local/tomcat/webapps/ROOT.war
 
-# Copia a aplicação para o diretório de deployments
-COPY --from=build /app/target/*.war /opt/jboss/wildfly/standalone/deployments/ROOT.war
+# Expor porta padrão do Tomcat
+EXPOSE 8080
 
-# Exponha a porta que o Render irá usar
-EXPOSE $PORT
-
-# Inicie o WildFly escutando na porta dinâmica
-CMD ["/opt/jboss/wildfly/bin/standalone.sh", "-b", "0.0.0.0", "-Djboss.http.port=$PORT"]
+# Rodar Tomcat em primeiro plano
+CMD ["catalina.sh", "run"]

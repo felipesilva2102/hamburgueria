@@ -26,64 +26,93 @@ public class HamburguerBean implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private transient List<Material> hamburgueres;
+    private transient List<Material> hamburgueresArtesanais;
     private transient List<Material> bebidas;
-    private transient List<Material> sobremesas;
+    private transient List<Material> cachorrosQuente;
     private transient List<Material> pasteis;
+    private transient List<Material> batatas;
 
     private String categoria;
 
     private boolean hamburguer = true;
     private boolean bebida;
-    private boolean sobremesa;
+    private boolean cachorroQuente;
+    private boolean hamburguerArtesanal;
     private boolean pastel;
+    private boolean batata;
 
     @PostConstruct
     public void init() {
         preencherHamburguer();
+        preencherHamburguerArtesanal();
         preencherBebidas();
-        preencherSobremesas();
-        preencherCombos();
+        preencherPasteis();
+        preencherCachorroQuente();
+        preencherBatatas();
+        redirecionarCardapio();
     }
 
     public void preencherHamburguer() {
         hamburgueres = new ArrayList<>();
-        hamburgueres.add(new Material("Clássico", "imagens/teste.jpg", 18.90, "teste"));
-        hamburgueres.add(new Material("Cheddar Bacon", "imagens/teste.jpg", 22.50, "teste"));
+        hamburgueres.add(new Material("Baurú Tradicional", "imagens/teste.jpg", 08.00, "Carne de hambúrguer, ovo, queijo, presunto, alface, tomate, milho, ervilha e batata palha."));
+        hamburgueres.add(new Material("X-Tudo", "imagens/teste.jpg", 13.00, "Carne de Hambúrguer, ovo, fatias de bacon, calabresa, queijo, presunto, alface, tomate, milho, ervilha e batata palha."));
+        hamburgueres.add(new Material("X-Tudo de Frango", "imagens/teste.jpg", 13.00, "Carne de hambúrguer de frango, salsicha, ovo, queijo, p resunto, milho, ervilha, alface, tomate e batata palha."));
+        hamburgueres.add(new Material("Baguete de Carne de Sol", "imagens/teste.jpg", 16.00, "Carne de sol desfiada, queijo, presunto, milho, ervilha, alface e tomate."));
+        hamburgueres.add(new Material("Baguete de Frango", "imagens/teste.jpg", 16.00, "Carne de frango desfiada, queijo, presunto, milho, ervilha, alface e tomate."));
         hamburgueres.add(new Material("Duplo Smash", "imagens/teste.jpg", 25.00, "teste"));
-        hamburgueres.add(new Material("Clássico", "imagens/teste.jpg", 18.90, "teste"));
-        hamburgueres.add(new Material("Cheddar Bacon", "imagens/teste.jpg", 22.50, "teste"));
-        hamburgueres.add(new Material("Duplo Smash", "imagens/teste.jpg", 25.00, "teste"));
-        hamburgueres.add(new Material("Veggie", "imagens/teste.jpg", 20.00, "teste"));
-        hamburgueres.add(new Material("Clássico", "imagens/teste.jpg", 18.90, "teste"));
-        hamburgueres.add(new Material("Cheddar Bacon", "imagens/teste.jpg", 22.50, "teste"));
-        hamburgueres.add(new Material("Duplo Smash", "imagens/teste.jpg", 25.00, "teste"));
-        hamburgueres.add(new Material("Veggie", "imagens/teste.jpg", 20.00, "teste"));
-        hamburgueres.add(new Material("Clássico", "imagens/teste.jpg", 18.90, "teste"));
-        hamburgueres.add(new Material("Cheddar Bacon", "imagens/teste.jpg", 22.50, "teste"));
-        hamburgueres.add(new Material("Duplo Smash", "imagens/teste.jpg", 25.00, "teste"));
-        hamburgueres.add(new Material("Veggie", "imagens/teste.jpg", 20.00, "teste"));
-        hamburgueres.add(new Material("Cheddar Bacon", "imagens/teste.jpg", 22.50, "teste"));
-        hamburgueres.add(new Material("Duplo Smash", "imagens/teste.jpg", 25.00, "teste"));
-        hamburgueres.add(new Material("Veggie", "imagens/teste.jpg", 20.00, "teste"));
-        hamburgueres.add(new Material("Clássico", "imagens/teste.jpg", 18.90, "teste"));
-        hamburgueres.add(new Material("Cheddar Bacon", "imagens/teste.jpg", 22.50, "teste"));
-        hamburgueres.add(new Material("Duplo Smash", "imagens/teste.jpg", 25.00, "teste"));
+        hamburgueres.add(new Material("Baguete de Calabresa", "imagens/teste.jpg", 16.00, "Calabresa, queijo, presunto, alface, tomate e pão de baguete."));
+    }
+
+    public void preencherHamburguerArtesanal() {
+        hamburgueres = new ArrayList<>();
+        hamburgueres.add(new Material("Hambúrguer Tropical", "imagens/teste.jpg", 15.00, "Carne de hambúrguer artesanal, queijo mussarela, alface, tomate, abacaxi grelhado e pão brioche."));
+        hamburgueres.add(new Material("Hambúrguer Costela", "imagens/teste.jpg", 18.00, "Carne de hambúrger artesanal, carne de costela desfiada, queijo coalho, cebola caramelizada e pão brioche."));
+        hamburgueres.add(new Material("Hambúrguer Cheddar Bacon", "imagens/teste.jpg", 16.00, "Carne de hambúrguer artesanal, queijo cheddar, fatias de bacon, alface, tomate, cebola caramelizada e pão brioche."));
+        hamburgueres.add(new Material("Hambúrguer Carne Dupla", "imagens/teste.jpg", 20.00, "Duas carnes de hambúrguer artesanal, duas fatias de bacon, duas fatias de queijo cheddar, duas porções de cebola empanada e pão brioche."));
+        hamburgueres.add(new Material("Hambúrguer Escondidinho", "imagens/teste.jpg", 16.00, "Carne de hambúrguer artesanal com queijo mussarela dentro, queijo cheddar, fatias de bacon, alface, tomate, cebola caramelizada e pão brioche."));
+        hamburgueres.add(new Material("Hambúrguer Americano", "imagens/teste.jpg", 15.00, "Carne de hambúrguer artesanal, queijo cheddar, picles, alface, tomate e pão brioche."));
+        hamburgueres.add(new Material("Hambúrguer Tentação", "imagens/teste.jpg", 18.00, "Carne de sol desfiada, ovo, fatias de bacon, queijo mussarea, fatias de picles, alface, tomate, cebola e pão brioche."));
+        hamburgueres.add(new Material("Hambúrguer 4 Queijos", "imagens/teste.jpg", 18.00, "Duas carnes de hambúrguer artesanal, queijo catupiry, queijo mussarela, queijo gorgonzola, queijo cheddar e pão brioche."));
+        hamburgueres.add(new Material("Hambúrguer de Frango", "imagens/teste.jpg", 13.00, "Carne de frango astesanal, queijo mussarela, alface, tomate, cebola e pão brioche."));
+        hamburgueres.add(new Material("Baurú Especial", "imagens/teste.jpg", 15.00, "Carne de hambúrguer artesanal, ovo, queijo, presunto, requeijão, milho, ervilha, alface, tomate e pão brioche."));
     }
 
     public void preencherBebidas() {
         bebidas = new ArrayList<>();
-        bebidas.add(new Material("Veggie", "imagens/teste.jpg", 20.00, "teste"));
-
+        bebidas.add(new Material("Suco de Mangaba", "bebidas/mangaba.png", 07.00, "teste"));
+        bebidas.add(new Material("Suco de Graviola", "bebidas/graviola.png", 07.00, "teste"));
+        bebidas.add(new Material("Suco de Laranja", "bebidas/laranja.png", 07.00, "teste"));
+        bebidas.add(new Material("Suco de Limão", "bebidas/limao.png", 07.00, "teste"));
+        bebidas.add(new Material("Suco de Uva", "bebidas/uva.jpg", 07.00, "teste"));
+        bebidas.add(new Material("Suco de Cajú", "bebidas/caju.jpg", 07.00, "teste"));
+        bebidas.add(new Material("Suco de Caja", "bebidas/caja.jpg", 07.00, "teste"));
     }
 
-    public void preencherSobremesas() {
-        sobremesas = new ArrayList<>();
-        sobremesas.add(new Material("Veggie", "imagens/teste.jpg", 20.00, "teste"));
-    }
-
-    public void preencherCombos() {
+    public void preencherPasteis() {
         pasteis = new ArrayList<>();
-        pasteis.add(new Material("Clássico", "imagens/teste.jpg", 18.90, "teste"));
+        pasteis.add(new Material("Pastel de Frango", "imagens/teste.jpg", 12.00, "Massa de pastel com recheio de frango."));
+        pasteis.add(new Material("Pastel de Frango com Catupiry", "imagens/teste.jpg", 12.00, "Massa de pastel com recheio de frango com catupiry."));
+        pasteis.add(new Material("Pastel de Calabresa com Mussarela", "imagens/teste.jpg", 12.00, "Massa de pastel com recheio de calabresa com mussarela."));
+        pasteis.add(new Material("Pastel de Carne de SOl", "imagens/teste.jpg", 12.00, "Massa de pastel com recheio de carne de sol."));
+        pasteis.add(new Material("Pastel de Queijo Coalho", "imagens/teste.jpg", 12.00, "Massa de pastel com recheio de queijo coalho."));
+        pasteis.add(new Material("Pastel de Carne de Sol com Queijo Coalho", "imagens/teste.jpg", 12.00, "Massa de pastel com recheio de carne de sol com queijo coalho."));
+        pasteis.add(new Material("Pastel de Queijo Mussarela", "imagens/teste.jpg", 12.00, "Massa de pastel com recheio de queijo mussarela."));
+        pasteis.add(new Material("Pastel de Queijo e Presunto", "imagens/teste.jpg", 12.00, "Massa de pastel com recheio de queijo e presunto."));
+        pasteis.add(new Material("Pastel Sertanejo", "imagens/teste.jpg", 12.00, "Massa de pastel com recheio de carne de so, ovo, queijo coalho, milho e ervilha."));
+    }
+
+    public void preencherCachorroQuente() {
+        cachorrosQuente = new ArrayList<>();
+        cachorrosQuente.add(new Material("Cachorro Quente de Carne", "cachorro-quente/carne.jpg", 10.00, "Carne moída, salsicha, milho, ervilha, queijo ralado, tomate, cebola, batata palha, catchup e maionese."));
+        cachorrosQuente.add(new Material("Cachorro Quente de Frango", "cachorro-quente/frango.png", 10.00, "Carne de frango, salsicha, milho, ervilha, queijo ralado, alface, tomate, batata palha, catchup e maionese."));
+    }
+
+    public void preencherBatatas() {
+        batatas = new ArrayList<>();
+        batatas.add(new Material("Batatinha Frita Natural", "imagens/teste.jpg", 20.00, "Batata frita"));
+        batatas.add(new Material("Batatinha Frita Recheada", "imagens/teste.jpg", 25.00, "Batata frita com calabresa e cheddar."));
+        batatas.add(new Material("Batatinha Frita Recheada", "imagens/teste.jpg", 25.00, "Batata frita com bacon e cheddar."));
+
     }
 
     public String aberto() {
@@ -106,40 +135,66 @@ public class HamburguerBean implements Serializable {
     public void filtrarCategoria() {
         this.hamburguer = true;
         this.bebida = false;
-        this.sobremesa = false;
+        this.hamburguerArtesanal = false;
         this.pastel = false;
         switch (categoria) {
             case "hamburgueres" -> {
                 hamburguer = true;
                 bebida = false;
-                sobremesa = false;
+                cachorroQuente = false;
+                hamburguerArtesanal = false;
                 pastel = false;
+                batata = false;
             }
             case "bebidas" -> {
                 hamburguer = false;
                 bebida = true;
-                sobremesa = false;
+                cachorroQuente = false;
+                hamburguerArtesanal = false;
                 pastel = false;
+                batata = false;
             }
-            case "sobremesas" -> {
+            case "hamburgueresArtesal" -> {
                 hamburguer = false;
                 bebida = false;
-                sobremesa = true;
+                cachorroQuente = false;
+                hamburguerArtesanal = true;
                 pastel = false;
+                batata = false;
             }
             case "pasteis" -> {
                 hamburguer = false;
                 bebida = false;
-                sobremesa = false;
+                cachorroQuente = false;
+                hamburguerArtesanal = false;
                 pastel = true;
+                batata = false;
             }
-
-
+            case "cachorroQuente" -> {
+                hamburguer = false;
+                bebida = false;
+                cachorroQuente = true;
+                hamburguerArtesanal = false;
+                pastel = false;
+                batata = false;
+            }
+            case "batata" -> {
+                hamburguer = false;
+                bebida = false;
+                cachorroQuente = false;
+                hamburguerArtesanal = false;
+                pastel = false;
+                batata = true;
+            }
         }
     }
 
     public List<Material> getHamburgueres() {
         return hamburgueres;
+    }
+
+    public String redirecionarCardapio() {
+        return "cardapio.xhtml?faces-redirect=true";
     }
 
 }

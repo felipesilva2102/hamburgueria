@@ -166,8 +166,7 @@
         <!-- ===== Cabeçalho ===== -->
         <div class="header">
             <div class="header-left">
-                <h:graphicImage value="imagens/logo.png" alt="Logo" style="height:50px;
-                                margin-right:15px;" />
+                <h:graphicImage value="imagens/logo.png" alt="Logo" style="height:50px; margin-right:15px;" />
                 <span class="nome-restaurante">Coux Chicken</span>
             </div>
 
@@ -193,17 +192,17 @@
             </div>
         </div>
 
-        <!-- ===== Formulário para categorias e produtos ===== -->
+        <!-- ===== Formulário principal ===== -->
         <h:form id="formCardapio">
 
             <!-- ===== Barra de Categorias ===== -->
-            <div class="categorias" style="text-align:center;
-                 margin-bottom:20px;">
+            <div class="categorias" style="text-align:center; margin-bottom:20px;">
+
                 <p:commandButton value="Hambúrgueres"
                                  action="#{hamburguerBean.filtrarCategoria}"
                                  styleClass="cat-btn"
                                  process="@this"
-                                 update="@form">
+                                 update="formCardapio">
                     <f:setPropertyActionListener target="#{hamburguerBean.categoria}" value="hamburgueres"/>
                 </p:commandButton>
 
@@ -211,44 +210,59 @@
                                  action="#{hamburguerBean.filtrarCategoria}"
                                  styleClass="cat-btn"
                                  process="@this"
-                                 update="@form">
+                                 update="formCardapio">
                     <f:setPropertyActionListener target="#{hamburguerBean.categoria}" value="bebidas"/>
                 </p:commandButton>
 
-                <p:commandButton value="Sobremesas"
+                <p:commandButton value="Hambúrguer Artesanal"
                                  action="#{hamburguerBean.filtrarCategoria}"
                                  styleClass="cat-btn"
                                  process="@this"
-                                 update="@form">
-                    <f:setPropertyActionListener target="#{hamburguerBean.categoria}" value="sobremesas"/>
+                                 update="formCardapio">
+                    <f:setPropertyActionListener target="#{hamburguerBean.categoria}" value="hamburgueresArtesal"/>
                 </p:commandButton>
 
                 <p:commandButton value="Pasteis"
                                  action="#{hamburguerBean.filtrarCategoria}"
                                  styleClass="cat-btn"
                                  process="@this"
-                                 update="@form">
+                                 update="formCardapio">
                     <f:setPropertyActionListener target="#{hamburguerBean.categoria}" value="pasteis"/>
                 </p:commandButton>
+
+                <p:commandButton value="Cachorro-Quente"
+                                 action="#{hamburguerBean.filtrarCategoria}"
+                                 styleClass="cat-btn"
+                                 process="@this"
+                                 update="formCardapio">
+                    <f:setPropertyActionListener target="#{hamburguerBean.categoria}" value="cachorroQuente"/>
+                </p:commandButton>
+
+                <p:commandButton value="Batata"
+                                 action="#{hamburguerBean.filtrarCategoria}"
+                                 styleClass="cat-btn"
+                                 process="@this"
+                                 update="formCardapio">
+                    <f:setPropertyActionListener target="#{hamburguerBean.categoria}" value="batata"/>
+                </p:commandButton>
+
             </div>
 
             <!-- ===== Produtos ===== -->
             <div class="container">
+
                 <h2>Produtos</h2>
-                <h:form rendered="#{hamburguerBean.hamburguer}">
+
+                <h:panelGroup rendered="#{hamburguerBean.hamburguer}">
                     <div class="subtitulo">
                         Nossos produtos são feitos diariamente com ingredientes frescos e selecionados.
                     </div>
-                    <p:dataView id="dvProdutos" value="#{hamburguerBean.hamburgueres}" var="p"
-                                layout="grid" rows="9" paginator="true">
+                    <p:dataView id="dvProdutosHamburguer" value="#{hamburguerBean.hamburgueres}" var="p"
+                                layout="grid" rows="6" paginator="true">
                         <p:dataViewGridItem>
-                            <p:card style="width: 300px;
-                                    margin: auto;">
+                            <p:card style="width: 300px; margin: auto;">
                                 <h:graphicImage value="#{p.imagem}" 
-                                                style="width:100%;
-                                                height:180px;
-                                                object-fit:cover;
-                                                border-radius: 10px 10px 0 0;" />
+                                                style="width:100%; height:180px; object-fit:cover; border-radius: 10px 10px 0 0;" />
                                 <f:facet name="title">
                                     <h:outputText value="#{p.nome}" />
                                 </f:facet>
@@ -261,50 +275,18 @@
                             </p:card>
                         </p:dataViewGridItem>
                     </p:dataView>
-                </h:form>
+                </h:panelGroup>
 
-                <h:form rendered="#{hamburguerBean.bebida}">
-                    <div class="subtitulo">
-                        Nossos bebidas são sempre servidas geladinhas para o melhor atendimento para o cliente.
-                    </div>
-                    <p:dataView id="dvProdutos" value="#{hamburguerBean.bebidas}" var="p"
-                                layout="grid" rows="9" paginator="true">
-                        <p:dataViewGridItem>
-                            <p:card style="width: 300px;
-                                    margin: auto;">
-                                <h:graphicImage value="#{p.imagem}" 
-                                                style="width:100%;
-                                                height:180px;
-                                                object-fit:cover;
-                                                border-radius: 10px 10px 0 0;" />
-                                <f:facet name="title">
-                                    <h:outputText value="#{p.nome}" />
-                                </f:facet>
-                                <div class="descricao">
-                                    <h:outputText value="#{p.descricao}" />
-                                </div>
-                                <div class="preco">
-                                    <h:outputText value="A partir de: " style="color: #333;"/> R$ #{p.preco}
-                                </div>
-                            </p:card>
-                        </p:dataViewGridItem>
-                    </p:dataView>
-                </h:form>
-
-                <h:form rendered="#{hamburguerBean.sobremesa}">
+                <h:panelGroup rendered="#{hamburguerBean.hamburguerArtesanal}">
                     <div class="subtitulo">
                         Nossos produtos são feitos diariamente com ingredientes frescos e selecionados.
                     </div>
-                    <p:dataView id="dvProdutos" value="#{hamburguerBean.sobremesas}" var="p"
+                    <p:dataView id="dvProdutosHamburguerArtesanal" value="#{hamburguerBean.hamburgueresArtesanais}" var="p"
                                 layout="grid" rows="9" paginator="true">
                         <p:dataViewGridItem>
-                            <p:card style="width: 300px;
-                                    margin: auto;">
+                            <p:card style="width: 300px; margin: auto;">
                                 <h:graphicImage value="#{p.imagem}" 
-                                                style="width:100%;
-                                                height:180px;
-                                                object-fit:cover;
-                                                border-radius: 10px 10px 0 0;" />
+                                                style="width:100%; height:180px; object-fit:cover; border-radius: 10px 10px 0 0;" />
                                 <f:facet name="title">
                                     <h:outputText value="#{p.nome}" />
                                 </f:facet>
@@ -317,22 +299,42 @@
                             </p:card>
                         </p:dataViewGridItem>
                     </p:dataView>
-                </h:form>
+                </h:panelGroup>
 
-                <h:form rendered="#{hamburguerBean.pastel}">
+                <h:panelGroup rendered="#{hamburguerBean.bebida}">
+                    <div class="subtitulo">
+                        Nossas bebidas são sempre servidas geladinhas para o melhor atendimento para o cliente.
+                    </div>
+                    <p:dataView id="dvProdutosBebida" value="#{hamburguerBean.bebidas}" var="p"
+                                layout="grid" rows="9" paginator="true">
+                        <p:dataViewGridItem>
+                            <p:card style="width: 300px; margin: auto;">
+                                <h:graphicImage value="#{p.imagem}" 
+                                                style="width:100%; height:180px; object-fit:cover; border-radius: 10px 10px 0 0;" />
+                                <f:facet name="title">
+                                    <h:outputText value="#{p.nome}" />
+                                </f:facet>
+                                <div class="descricao">
+                                    <h:outputText value="#{p.descricao}" />
+                                </div>
+                                <div class="preco">
+                                    <h:outputText value="A partir de: " style="color: #333;"/> R$ #{p.preco}
+                                </div>
+                            </p:card>
+                        </p:dataViewGridItem>
+                    </p:dataView>
+                </h:panelGroup>
+
+                <h:panelGroup rendered="#{hamburguerBean.pastel}">
                     <div class="subtitulo">
                         Nossos produtos são feitos diariamente com ingredientes frescos, selecionados e assados na hora.
                     </div>
-                    <p:dataView id="dvProdutos" value="#{hamburguerBean.pasteis}" var="p"
+                    <p:dataView id="dvProdutosPastel" value="#{hamburguerBean.pasteis}" var="p"
                                 layout="grid" rows="9" paginator="true">
                         <p:dataViewGridItem>
-                            <p:card style="width: 300px;
-                                    margin: auto;">
+                            <p:card style="width: 300px; margin: auto;">
                                 <h:graphicImage value="#{p.imagem}" 
-                                                style="width:100%;
-                                                height:180px;
-                                                object-fit:cover;
-                                                border-radius: 10px 10px 0 0;" />
+                                                style="width:100%; height:180px; object-fit:cover; border-radius: 10px 10px 0 0;" />
                                 <f:facet name="title">
                                     <h:outputText value="#{p.nome}" />
                                 </f:facet>
@@ -345,10 +347,59 @@
                             </p:card>
                         </p:dataViewGridItem>
                     </p:dataView>
-                </h:form>
+                </h:panelGroup>
+
+                <h:panelGroup rendered="#{hamburguerBean.cachorroQuente}">
+                    <div class="subtitulo">
+                        Nossos produtos são feitos diariamente com ingredientes frescos, selecionados e assados na hora.
+                    </div>
+                    <p:dataView id="dvProdutosCachorroQuente" value="#{hamburguerBean.cachorrosQuente}" var="p"
+                                layout="grid" rows="9" paginator="true">
+                        <p:dataViewGridItem>
+                            <p:card style="width: 300px; margin: auto;">
+                                <h:graphicImage value="#{p.imagem}" 
+                                                style="width:100%; height:180px; object-fit:cover; border-radius: 10px 10px 0 0;" />
+                                <f:facet name="title">
+                                    <h:outputText value="#{p.nome}" />
+                                </f:facet>
+                                <div class="descricao">
+                                    <h:outputText value="#{p.descricao}" />
+                                </div>
+                                <div class="preco">
+                                    <h:outputText value="A partir de: " style="color: #333;"/> R$ #{p.preco}
+                                </div>
+                            </p:card>
+                        </p:dataViewGridItem>
+                    </p:dataView>
+                </h:panelGroup>
+
+                <h:panelGroup rendered="#{hamburguerBean.batata}">
+                    <div class="subtitulo">
+                        Nossos produtos são feitos diariamente com ingredientes frescos, selecionados e assados na hora.
+                    </div>
+                    <p:dataView id="dvProdutosBatata" value="#{hamburguerBean.batatas}" var="p"
+                                layout="grid" rows="9" paginator="true">
+                        <p:dataViewGridItem>
+                            <p:card style="width: 300px; margin: auto;">
+                                <h:graphicImage value="#{p.imagem}" 
+                                                style="width:100%; height:180px; object-fit:cover; border-radius: 10px 10px 0 0;" />
+                                <f:facet name="title">
+                                    <h:outputText value="#{p.nome}" />
+                                </f:facet>
+                                <div class="descricao">
+                                    <h:outputText value="#{p.descricao}" />
+                                </div>
+                                <div class="preco">
+                                    <h:outputText value="A partir de: " style="color: #333;"/> R$ #{p.preco}
+                                </div>
+                            </p:card>
+                        </p:dataViewGridItem>
+                    </p:dataView>
+                </h:panelGroup>
             </div>
 
         </h:form>
+
         <!-- Rodapé -->
         <footer id="footer" style="text-align:center; padding:20px; background:#f9f9f9;">
             <!-- Desenvolvedor -->
