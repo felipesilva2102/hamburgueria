@@ -54,27 +54,27 @@ public class HamburguerBean implements Serializable {
 
     public void preencherHamburguer() {
         hamburgueres = new ArrayList<>();
-        hamburgueres.add(new Material("Baurú Tradicional", "imagens/teste.jpg", 08.00, "Carne de hambúrguer, ovo, queijo, presunto, alface, tomate, milho, ervilha e batata palha."));
-        hamburgueres.add(new Material("X-Tudo", "imagens/teste.jpg", 13.00, "Carne de Hambúrguer, ovo, fatias de bacon, calabresa, queijo, presunto, alface, tomate, milho, ervilha e batata palha."));
-        hamburgueres.add(new Material("X-Tudo de Frango", "imagens/teste.jpg", 13.00, "Carne de hambúrguer de frango, salsicha, ovo, queijo, p resunto, milho, ervilha, alface, tomate e batata palha."));
-        hamburgueres.add(new Material("Baguete de Carne de Sol", "imagens/teste.jpg", 16.00, "Carne de sol desfiada, queijo, presunto, milho, ervilha, alface e tomate."));
-        hamburgueres.add(new Material("Baguete de Frango", "imagens/teste.jpg", 16.00, "Carne de frango desfiada, queijo, presunto, milho, ervilha, alface e tomate."));
-        hamburgueres.add(new Material("Duplo Smash", "imagens/teste.jpg", 25.00, "teste"));
-        hamburgueres.add(new Material("Baguete de Calabresa", "imagens/teste.jpg", 16.00, "Calabresa, queijo, presunto, alface, tomate e pão de baguete."));
+        hamburgueres.add(new Material("Baurú Tradicional", "hamburguer/bauru.jpg", 08.00, "Carne de hambúrguer, ovo, queijo, presunto, alface, tomate, milho, ervilha e batata palha."));
+        hamburgueres.add(new Material("X-Tudo", "hamburguer/x-tudo.jpg", 13.00, "Carne de Hambúrguer, ovo, fatias de bacon, calabresa, queijo, presunto, alface, tomate, milho, ervilha e batata palha."));
+        hamburgueres.add(new Material("X-Tudo de Frango", "hamburguer/x-frango.jpg", 13.00, "Carne de hambúrguer de frango, salsicha, ovo, queijo, p resunto, milho, ervilha, alface, tomate e batata palha."));
+        hamburgueres.add(new Material("Baguete de Carne de Sol", "hamburguer/baguete-carne.jpg", 16.00, "Carne de sol desfiada, queijo, presunto, milho, ervilha, alface e tomate."));
+        hamburgueres.add(new Material("Baguete de Frango", "hamburguer/baguete-frango.jpg", 16.00, "Carne de frango desfiada, queijo, presunto, milho, ervilha, alface e tomate."));
+        hamburgueres.add(new Material("Duplo Smash", "hamburguer/smash.jpg", 25.00, "teste"));
+        hamburgueres.add(new Material("Baguete de Calabresa", "hamburguer/baguete-calabresa.jpg", 16.00, "Calabresa, queijo, presunto, alface, tomate e pão de baguete."));
     }
 
     public void preencherHamburguerArtesanal() {
         hamburgueresArtesanais = new ArrayList<>();
-        hamburgueresArtesanais.add(new Material("Hambúrguer Tropical", "imagens/teste.jpg", 15.00, "Carne de hambúrguer artesanal, queijo mussarela, alface, tomate, abacaxi grelhado e pão brioche."));
-        hamburgueresArtesanais.add(new Material("Hambúrguer Costela", "imagens/teste.jpg", 18.00, "Carne de hambúrger artesanal, carne de costela desfiada, queijo coalho, cebola caramelizada e pão brioche."));
-        hamburgueresArtesanais.add(new Material("Hambúrguer Cheddar Bacon", "imagens/teste.jpg", 16.00, "Carne de hambúrguer artesanal, queijo cheddar, fatias de bacon, alface, tomate, cebola caramelizada e pão brioche."));
-        hamburgueresArtesanais.add(new Material("Hambúrguer Carne Dupla", "imagens/teste.jpg", 20.00, "Duas carnes de hambúrguer artesanal, duas fatias de bacon, duas fatias de queijo cheddar, duas porções de cebola empanada e pão brioche."));
-        hamburgueresArtesanais.add(new Material("Hambúrguer Escondidinho", "imagens/teste.jpg", 16.00, "Carne de hambúrguer artesanal com queijo mussarela dentro, queijo cheddar, fatias de bacon, alface, tomate, cebola caramelizada e pão brioche."));
-        hamburgueresArtesanais.add(new Material("Hambúrguer Americano", "imagens/teste.jpg", 15.00, "Carne de hambúrguer artesanal, queijo cheddar, picles, alface, tomate e pão brioche."));
-        hamburgueresArtesanais.add(new Material("Hambúrguer Tentação", "imagens/teste.jpg", 18.00, "Carne de sol desfiada, ovo, fatias de bacon, queijo mussarea, fatias de picles, alface, tomate, cebola e pão brioche."));
-        hamburgueresArtesanais.add(new Material("Hambúrguer 4 Queijos", "imagens/teste.jpg", 18.00, "Duas carnes de hambúrguer artesanal, queijo catupiry, queijo mussarela, queijo gorgonzola, queijo cheddar e pão brioche."));
-        hamburgueresArtesanais.add(new Material("Hambúrguer de Frango", "imagens/teste.jpg", 13.00, "Carne de frango astesanal, queijo mussarela, alface, tomate, cebola e pão brioche."));
-        hamburgueresArtesanais.add(new Material("Baurú Especial", "imagens/teste.jpg", 15.00, "Carne de hambúrguer artesanal, ovo, queijo, presunto, requeijão, milho, ervilha, alface, tomate e pão brioche."));
+        hamburgueresArtesanais.add(new Material("Hambúrguer Tropical", "hamburguerArtesanal/Tropical.jpg", 15.00, "Carne de hambúrguer artesanal, queijo mussarela, alface, tomate, abacaxi grelhado e pão brioche."));
+        hamburgueresArtesanais.add(new Material("Hambúrguer Costela", "hamburguerArtesanal/Costela.jpg", 18.00, "Carne de hambúrger artesanal, carne de costela desfiada, queijo coalho, cebola caramelizada e pão brioche."));
+        hamburgueresArtesanais.add(new Material("Hambúrguer Cheddar Bacon", "hamburguerArtesanal/Cheddar-Bacon.jpg", 16.00, "Carne de hambúrguer artesanal, queijo cheddar, fatias de bacon, alface, tomate, cebola caramelizada e pão brioche."));
+        hamburgueresArtesanais.add(new Material("Hambúrguer Carne Dupla", "hamburguerArtesanal/Carne-Dupla.jpg", 20.00, "Duas carnes de hambúrguer artesanal, duas fatias de bacon, duas fatias de queijo cheddar, duas porções de cebola empanada e pão brioche."));
+        hamburgueresArtesanais.add(new Material("Hambúrguer Escondidinho", "hamburguerArtesanal/Escondidinho.jpg", 16.00, "Carne de hambúrguer artesanal com queijo mussarela dentro, queijo cheddar, fatias de bacon, alface, tomate, cebola caramelizada e pão brioche."));
+        hamburgueresArtesanais.add(new Material("Hambúrguer Americano", "hamburguerArtesanal/Americano.jpg", 15.00, "Carne de hambúrguer artesanal, queijo cheddar, picles, alface, tomate e pão brioche."));
+        hamburgueresArtesanais.add(new Material("Hambúrguer Tentação", "hamburguerArtesanal/Tentação.jpg", 18.00, "Carne de sol desfiada, ovo, fatias de bacon, queijo mussarea, fatias de picles, alface, tomate, cebola e pão brioche."));
+        hamburgueresArtesanais.add(new Material("Hambúrguer 4 Queijos", "hamburguerArtesanal/Queijos.jpg", 18.00, "Duas carnes de hambúrguer artesanal, queijo catupiry, queijo mussarela, queijo gorgonzola, queijo cheddar e pão brioche."));
+        hamburgueresArtesanais.add(new Material("Hambúrguer de Frango", "hamburguerArtesanal/Frango.jpg", 13.00, "Carne de frango astesanal, queijo mussarela, alface, tomate, cebola e pão brioche."));
+        hamburgueresArtesanais.add(new Material("Baurú Especial", "hamburguerArtesanal/Especial.jpg", 15.00, "Carne de hambúrguer artesanal, ovo, queijo, presunto, requeijão, milho, ervilha, alface, tomate e pão brioche."));
     }
 
     public void preencherBebidas() {
@@ -90,15 +90,15 @@ public class HamburguerBean implements Serializable {
 
     public void preencherPasteis() {
         pasteis = new ArrayList<>();
-        pasteis.add(new Material("Pastel de Frango", "imagens/teste.jpg", 12.00, "Massa de pastel com recheio de frango."));
-        pasteis.add(new Material("Pastel de Frango com Catupiry", "imagens/teste.jpg", 12.00, "Massa de pastel com recheio de frango com catupiry."));
-        pasteis.add(new Material("Pastel de Calabresa com Mussarela", "imagens/teste.jpg", 12.00, "Massa de pastel com recheio de calabresa com mussarela."));
-        pasteis.add(new Material("Pastel de Carne de SOl", "imagens/teste.jpg", 12.00, "Massa de pastel com recheio de carne de sol."));
-        pasteis.add(new Material("Pastel de Queijo Coalho", "imagens/teste.jpg", 12.00, "Massa de pastel com recheio de queijo coalho."));
-        pasteis.add(new Material("Pastel de Carne de Sol com Queijo Coalho", "imagens/teste.jpg", 12.00, "Massa de pastel com recheio de carne de sol com queijo coalho."));
-        pasteis.add(new Material("Pastel de Queijo Mussarela", "imagens/teste.jpg", 12.00, "Massa de pastel com recheio de queijo mussarela."));
-        pasteis.add(new Material("Pastel de Queijo e Presunto", "imagens/teste.jpg", 12.00, "Massa de pastel com recheio de queijo e presunto."));
-        pasteis.add(new Material("Pastel Sertanejo", "imagens/teste.jpg", 12.00, "Massa de pastel com recheio de carne de so, ovo, queijo coalho, milho e ervilha."));
+        pasteis.add(new Material("Pastel de Frango", "pastel/frango.jpg", 12.00, "Massa de pastel com recheio de frango."));
+        pasteis.add(new Material("Pastel de Frango com Catupiry", "pastel/frangoCatupiry.jpg", 12.00, "Massa de pastel com recheio de frango com catupiry."));
+        pasteis.add(new Material("Pastel de Calabresa com Mussarela", "pastel/calabresaMussarela.jpg", 12.00, "Massa de pastel com recheio de calabresa com mussarela."));
+        pasteis.add(new Material("Pastel de Carne de Sol", "pastel/carneSol.jpg", 12.00, "Massa de pastel com recheio de carne de sol."));
+        pasteis.add(new Material("Pastel de Queijo Coalho", "pastel/queijoCoalho.jpg", 12.00, "Massa de pastel com recheio de queijo coalho."));
+        pasteis.add(new Material("Pastel de Carne de Sol com Queijo Coalho", "pastel/carneSolCoalho.jpg", 12.00, "Massa de pastel com recheio de carne de sol com queijo coalho."));
+        pasteis.add(new Material("Pastel de Queijo Mussarela", "pastel/queijo.jpeg", 12.00, "Massa de pastel com recheio de queijo mussarela."));
+        pasteis.add(new Material("Pastel de Queijo e Presunto", "pastel/queijoPresunto.jpg", 12.00, "Massa de pastel com recheio de queijo e presunto."));
+        pasteis.add(new Material("Pastel Sertanejo", "pastel/sertanejo.jpg", 12.00, "Massa de pastel com recheio de carne de so, ovo, queijo coalho, milho e ervilha."));
     }
 
     public void preencherCachorroQuente() {
@@ -109,9 +109,9 @@ public class HamburguerBean implements Serializable {
 
     public void preencherBatatas() {
         batatas = new ArrayList<>();
-        batatas.add(new Material("Batatinha Frita Natural", "imagens/teste.jpg", 20.00, "Batata frita"));
-        batatas.add(new Material("Batatinha Frita Recheada", "imagens/teste.jpg", 25.00, "Batata frita com calabresa e cheddar."));
-        batatas.add(new Material("Batatinha Frita Recheada", "imagens/teste.jpg", 25.00, "Batata frita com bacon e cheddar."));
+        batatas.add(new Material("Batatinha Frita Natural", "batata-frita/natural.jpg", 20.00, "Batata frita"));
+        batatas.add(new Material("Batatinha Frita Recheada", "batata-frita/queijoCheddar.jpg", 25.00, "Batata frita com calabresa e cheddar."));
+        batatas.add(new Material("Batatinha Frita Recheada", "batata-frita/queijoBacon.jpg", 25.00, "Batata frita com bacon e cheddar."));
 
     }
 
