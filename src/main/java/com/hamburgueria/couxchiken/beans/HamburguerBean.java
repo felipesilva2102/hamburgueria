@@ -64,17 +64,17 @@ public class HamburguerBean implements Serializable {
     }
 
     public void preencherHamburguerArtesanal() {
-        hamburgueres = new ArrayList<>();
-        hamburgueres.add(new Material("Hambúrguer Tropical", "imagens/teste.jpg", 15.00, "Carne de hambúrguer artesanal, queijo mussarela, alface, tomate, abacaxi grelhado e pão brioche."));
-        hamburgueres.add(new Material("Hambúrguer Costela", "imagens/teste.jpg", 18.00, "Carne de hambúrger artesanal, carne de costela desfiada, queijo coalho, cebola caramelizada e pão brioche."));
-        hamburgueres.add(new Material("Hambúrguer Cheddar Bacon", "imagens/teste.jpg", 16.00, "Carne de hambúrguer artesanal, queijo cheddar, fatias de bacon, alface, tomate, cebola caramelizada e pão brioche."));
-        hamburgueres.add(new Material("Hambúrguer Carne Dupla", "imagens/teste.jpg", 20.00, "Duas carnes de hambúrguer artesanal, duas fatias de bacon, duas fatias de queijo cheddar, duas porções de cebola empanada e pão brioche."));
-        hamburgueres.add(new Material("Hambúrguer Escondidinho", "imagens/teste.jpg", 16.00, "Carne de hambúrguer artesanal com queijo mussarela dentro, queijo cheddar, fatias de bacon, alface, tomate, cebola caramelizada e pão brioche."));
-        hamburgueres.add(new Material("Hambúrguer Americano", "imagens/teste.jpg", 15.00, "Carne de hambúrguer artesanal, queijo cheddar, picles, alface, tomate e pão brioche."));
-        hamburgueres.add(new Material("Hambúrguer Tentação", "imagens/teste.jpg", 18.00, "Carne de sol desfiada, ovo, fatias de bacon, queijo mussarea, fatias de picles, alface, tomate, cebola e pão brioche."));
-        hamburgueres.add(new Material("Hambúrguer 4 Queijos", "imagens/teste.jpg", 18.00, "Duas carnes de hambúrguer artesanal, queijo catupiry, queijo mussarela, queijo gorgonzola, queijo cheddar e pão brioche."));
-        hamburgueres.add(new Material("Hambúrguer de Frango", "imagens/teste.jpg", 13.00, "Carne de frango astesanal, queijo mussarela, alface, tomate, cebola e pão brioche."));
-        hamburgueres.add(new Material("Baurú Especial", "imagens/teste.jpg", 15.00, "Carne de hambúrguer artesanal, ovo, queijo, presunto, requeijão, milho, ervilha, alface, tomate e pão brioche."));
+        hamburgueresArtesanais = new ArrayList<>();
+        hamburgueresArtesanais.add(new Material("Hambúrguer Tropical", "imagens/teste.jpg", 15.00, "Carne de hambúrguer artesanal, queijo mussarela, alface, tomate, abacaxi grelhado e pão brioche."));
+        hamburgueresArtesanais.add(new Material("Hambúrguer Costela", "imagens/teste.jpg", 18.00, "Carne de hambúrger artesanal, carne de costela desfiada, queijo coalho, cebola caramelizada e pão brioche."));
+        hamburgueresArtesanais.add(new Material("Hambúrguer Cheddar Bacon", "imagens/teste.jpg", 16.00, "Carne de hambúrguer artesanal, queijo cheddar, fatias de bacon, alface, tomate, cebola caramelizada e pão brioche."));
+        hamburgueresArtesanais.add(new Material("Hambúrguer Carne Dupla", "imagens/teste.jpg", 20.00, "Duas carnes de hambúrguer artesanal, duas fatias de bacon, duas fatias de queijo cheddar, duas porções de cebola empanada e pão brioche."));
+        hamburgueresArtesanais.add(new Material("Hambúrguer Escondidinho", "imagens/teste.jpg", 16.00, "Carne de hambúrguer artesanal com queijo mussarela dentro, queijo cheddar, fatias de bacon, alface, tomate, cebola caramelizada e pão brioche."));
+        hamburgueresArtesanais.add(new Material("Hambúrguer Americano", "imagens/teste.jpg", 15.00, "Carne de hambúrguer artesanal, queijo cheddar, picles, alface, tomate e pão brioche."));
+        hamburgueresArtesanais.add(new Material("Hambúrguer Tentação", "imagens/teste.jpg", 18.00, "Carne de sol desfiada, ovo, fatias de bacon, queijo mussarea, fatias de picles, alface, tomate, cebola e pão brioche."));
+        hamburgueresArtesanais.add(new Material("Hambúrguer 4 Queijos", "imagens/teste.jpg", 18.00, "Duas carnes de hambúrguer artesanal, queijo catupiry, queijo mussarela, queijo gorgonzola, queijo cheddar e pão brioche."));
+        hamburgueresArtesanais.add(new Material("Hambúrguer de Frango", "imagens/teste.jpg", 13.00, "Carne de frango astesanal, queijo mussarela, alface, tomate, cebola e pão brioche."));
+        hamburgueresArtesanais.add(new Material("Baurú Especial", "imagens/teste.jpg", 15.00, "Carne de hambúrguer artesanal, ovo, queijo, presunto, requeijão, milho, ervilha, alface, tomate e pão brioche."));
     }
 
     public void preencherBebidas() {
