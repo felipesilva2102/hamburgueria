@@ -106,7 +106,7 @@ public class HamburguerBean implements Serializable {
         pasteis.add(new Material("Pastel de Carne de Sol com Queijo Coalho", "pastel/carneSolCoalho.jpg", 12.00, "Massa de pastel com recheio de carne de sol com queijo coalho."));
         pasteis.add(new Material("Pastel de Queijo Mussarela", "pastel/queijo.jpeg", 12.00, "Massa de pastel com recheio de queijo mussarela."));
         pasteis.add(new Material("Pastel de Queijo e Presunto", "pastel/queijoPresunto.jpg", 12.00, "Massa de pastel com recheio de queijo e presunto."));
-        pasteis.add(new Material("Pastel Sertanejo", "pastel/sertanejo.jpg", 12.00, "Massa de pastel com recheio de carne de so, ovo, queijo coalho, milho e ervilha."));
+        pasteis.add(new Material("Pastel Sertanejo", "pastel/sertanejo.jpg", 13.00, "Massa de pastel com recheio de carne de so, ovo, queijo coalho, milho e ervilha."));
     }
 
     public void preencherCachorroQuente() {
