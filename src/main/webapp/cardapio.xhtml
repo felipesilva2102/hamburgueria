@@ -270,7 +270,11 @@
                                     <h:outputText value="#{p.descricao}" />
                                 </div>
                                 <div class="preco">
-                                    <h:outputText value="A partir de: " style="color: #333;"/> R$ #{p.preco}
+                                    <h:outputFormat value="A partir de: {0}">
+    <f:param value="#{p.preco}">
+        <f:convertNumber type="currency" currencySymbol="R$ " minFractionDigits="2" maxFractionDigits="2"/>
+    </f:param>
+</h:outputFormat>
                                 </div>
                             </p:card>
                         </p:dataViewGridItem>
