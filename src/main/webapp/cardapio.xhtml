@@ -8,6 +8,18 @@
         <title>Coux Chicken - Cardápio</title>
 
         <style>
+            /* ===== Reset Básico ===== */
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                background-color: #f4f6f8;
+                font-family: Arial, sans-serif;
+            }
+
             /* ===== Cabeçalho ===== */
             .header {
                 display: flex;
@@ -16,24 +28,28 @@
                 padding: 15px 30px;
                 background-color: #f8f8f8;
                 box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-                font-family: Arial, sans-serif;
+                flex-wrap: wrap;
+                gap: 15px;
             }
 
             .header-left {
                 display: flex;
                 align-items: center;
+                gap: 10px;
             }
 
             .nome-restaurante {
-                font-size: 1.5rem;
+                font-size: 1.6rem;
                 font-weight: bold;
                 color: #333;
             }
 
             .header-center {
                 display: flex;
-                gap: 30px;
+                gap: 25px;
                 align-items: center;
+                flex-wrap: wrap;
+                justify-content: center;
             }
 
             .header-center .info {
@@ -53,17 +69,21 @@
             .categorias {
                 display: flex;
                 justify-content: center;
-                gap: 15px;
-                margin: 20px 0;
+                flex-wrap: wrap;
+                gap: 12px;
+                margin: 20px auto;
+                max-width: 900px;
+                padding: 0 10px;
             }
 
             .cat-btn {
                 background-color: #e53935;
                 color: #fff !important;
                 border-radius: 8px;
-                padding: 10px 20px;
+                padding: 10px 18px;
                 font-weight: bold;
                 transition: 0.2s;
+                font-size: 0.95rem;
             }
 
             .cat-btn:hover {
@@ -71,23 +91,16 @@
                 transform: translateY(-2px);
             }
 
-            /* ===== Corpo da Página ===== */
-            body {
-                background-color: #f4f6f8;
-                font-family: Arial, sans-serif;
-                margin: 0;
-                padding: 0;
-            }
-
+            /* ===== Conteúdo Principal ===== */
             .container {
-                max-width: 1100px;
+                max-width: 1200px;
                 margin: auto;
                 padding: 20px;
             }
 
             h2 {
                 text-align: center;
-                margin: 10px 0;
+                margin: 15px 0;
                 font-size: 28px;
                 color: #333;
             }
@@ -96,9 +109,10 @@
                 text-align: center;
                 font-size: 15px;
                 color: #666;
-                margin-bottom: 30px;
+                margin-bottom: 25px;
             }
 
+            /* ===== Produtos ===== */
             .p-card {
                 border-radius: 12px;
                 box-shadow: 0 3px 10px rgba(0,0,0,0.15);
@@ -131,33 +145,67 @@
                 margin-top: 10px;
             }
 
+            /* ===== Rodapé ===== */
+            footer {
+                text-align: center;
+                padding: 20px;
+                background: #f9f9f9;
+                margin-top: 40px;
+            }
+
+            footer div {
+                margin-top: 10px;
+            }
+
             /* ===== Responsividade ===== */
-            @media (max-width: 768px) {
+            @media (max-width: 992px) {
                 .header {
                     flex-direction: column;
-                    gap: 10px;
+                    text-align: center;
                 }
+
                 .header-center {
                     flex-direction: column;
-                    gap: 8px;
-                }
-                .categorias {
-                    flex-direction: column;
                     gap: 10px;
                 }
             }
 
-            .whatsapp-link {
-                color: #333;
-                text-decoration: none;
-                display: flex;
-                align-items: center;
-                gap: 5px;
+            @media (max-width: 768px) {
+                .nome-restaurante {
+                    font-size: 1.3rem;
+                }
+
+                .cat-btn {
+                    padding: 8px 14px;
+                    font-size: 0.9rem;
+                }
+
+                h2 {
+                    font-size: 24px;
+                }
+
+                .descricao {
+                    font-size: 13px;
+                }
             }
 
-            .whatsapp-link:hover {
-                color: #128C7E;
-                text-decoration: none;
+            @media (max-width: 480px) {
+                .header {
+                    padding: 10px 15px;
+                }
+
+                .nome-restaurante {
+                    font-size: 1.1rem;
+                }
+
+                .cat-btn {
+                    width: 100%;
+                    text-align: center;
+                }
+
+                .p-card {
+                    width: 100% !important;
+                }
             }
         </style>
     </h:head>
@@ -166,7 +214,7 @@
         <!-- ===== Cabeçalho ===== -->
         <div class="header">
             <div class="header-left">
-                <h:graphicImage value="imagens/logo.png" alt="Logo" style="height:50px; margin-right:15px;" />
+                <h:graphicImage value="imagens/logo.png" alt="Logo" style="height:50px;" />
                 <span class="nome-restaurante">Coux Chicken</span>
             </div>
 
@@ -180,11 +228,12 @@
                 <p:poll interval="60" update="abertoDiv" />
 
                 <div class="info">
-                    Faça seu pedido:&#160;&#160;
-                    <a href="https://wa.me/5584994537977" target="_blank">
-                        <i class="pi pi-whatsapp"></i>+55 (84) 99453-7977
+                    <i class="pi pi-whatsapp" style="color:#25D366;"></i>
+                    <a href="https://wa.me/5584994537977" target="_blank" class="whatsapp-link">
+                        +55 (84) 99453-7977
                     </a>
-                </div> 
+                </div>
+
                 <div class="info">
                     <i class="pi pi-map-marker"></i>
                     <span>Rua Leda Mouzinho Quiosque 2, Nova Cruz</span>
@@ -194,10 +243,8 @@
 
         <!-- ===== Formulário principal ===== -->
         <h:form id="formCardapio">
-
-            <!-- ===== Barra de Categorias ===== -->
-            <div class="categorias" style="text-align:center; margin-bottom:20px;">
-
+            <!-- Categorias -->
+            <div class="categorias">
                 <p:commandButton value="Hambúrgueres"
                                  action="#{hamburguerBean.filtrarCategoria}"
                                  styleClass="cat-btn"
@@ -245,7 +292,6 @@
                                  update="formCardapio">
                     <f:setPropertyActionListener target="#{hamburguerBean.categoria}" value="batata"/>
                 </p:commandButton>
-
             </div>
 
             <!-- ===== Produtos ===== -->
@@ -415,18 +461,14 @@
                     </p:dataView>
                 </h:panelGroup>
             </div>
-
         </h:form>
 
         <!-- Rodapé -->
-        <footer id="footer" style="text-align:center; padding:20px; background:#f9f9f9;">
-            <!-- Desenvolvedor -->
-            <div style="margin-top:10px; color:#bbb; font-size:0.9rem;">
+        <footer>
+            <div style="color:#bbb; font-size:0.9rem;">
                 Desenvolvido por <strong>FS Tech</strong>
             </div>
-
-            <!-- Contato final -->
-            <div style="margin-top:8px;">
+            <div>
                 <i class="pi pi-whatsapp" style="color:#25D366;"></i>
                 <a href="https://wa.me/5584999937274?text=Ol%C3%A1,%20gostaria%20de%20saber%20mais%20sobre%20seu%20trabalho."
                    target="_blank"
@@ -435,6 +477,5 @@
                 </a>
             </div>
         </footer>
-
     </h:body>
 </html>
