@@ -212,33 +212,39 @@
 
     <h:body>
         <!-- ===== Cabeçalho ===== -->
-        <div class="header">
-            <div class="header-left">
+        <div class="header" style="display:flex; justify-content:space-between; align-items:center; padding:10px 20px; background-color:#fff; box-shadow:0 2px 5px rgba(0,0,0,0.1);">
+
+            <!-- Logo e nome -->
+            <div class="header-left" style="display:flex; align-items:center; gap:10px;">
                 <h:graphicImage value="imagens/logo.png" alt="Logo" style="height:50px;" />
-                <span class="nome-restaurante">Coux Chicken</span>
+                <span class="nome-restaurante" style="font-size:1.5em; font-weight:bold; color:#333;">Coux Chicken</span>
             </div>
 
-            <div class="header-center">
+            <!-- Centro: status, botão e endereço -->
+            <div class="header-center" style="display:flex; align-items:center; gap:30px;">
+
+                <!-- Status de funcionamento -->
                 <h:panelGroup id="abertoDiv">
-                    <div class="info">
+                    <div class="info" style="display:flex; align-items:center; gap:5px; font-weight:bold; color:green;">
                         <i class="pi pi-clock"></i>
                         <span>#{hamburguerBean.aberto()}</span>
                     </div>
                 </h:panelGroup>
                 <p:poll interval="60" update="abertoDiv" />
 
-                <div class="info">
-                    Faça seu pedido:&#160;&#160;
-                    <a href="https://wa.me/5584994537977" target="_blank">
-                        <i class="pi pi-whatsapp"></i>+55 (84) 99453-7977
-                    </a>
-                </div>
+                <!-- Botão de pedido -->
+                <p:commandButton value="Faça seu pedido" 
+                                 styleClass="p-button-success p-button-rounded p-button-lg"
+                                 action="/pedido.xhtml?faces-redirect=true" />
 
-                <div class="info">
+                <!-- Endereço -->
+                <div class="info" style="display:flex; align-items:center; gap:5px; color:#555;">
                     <i class="pi pi-map-marker"></i>
                     <span>Rua Leda Mouzinho Quiosque 2, Nova Cruz</span>
                 </div>
+
             </div>
+
         </div>
 
         <!-- ===== Formulário principal ===== -->
