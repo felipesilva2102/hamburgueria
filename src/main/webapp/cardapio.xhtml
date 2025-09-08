@@ -32,6 +32,7 @@
                 font-size: 14px;
                 font-weight: bold;
             }
+
             /* Categorias */
             .categorias {
                 display: flex;
@@ -61,6 +62,7 @@
                 transform: translateY(-3px);
                 box-shadow: 0 6px 14px rgba(0,0,0,0.25);
             }
+
             /* Cards */
             .p-card {
                 border-radius: 15px;
@@ -85,6 +87,7 @@
                 color: #e53935;
                 margin-bottom: 10px;
             }
+
             .btn-whatsapp {
                 display: inline-block;
                 background: #25D366;
@@ -99,6 +102,7 @@
             .btn-whatsapp:hover {
                 background: #1ebe57;
             }
+
             footer {
                 margin-top: 30px;
                 text-align: center;
@@ -107,14 +111,20 @@
                 color: #fff;
                 font-size: 14px;
             }
-            /* Responsividade para celular */
+
+            /* Responsividade Mobile */
             @media (max-width: 768px) {
                 header h1 {
                     font-size: 18px;
                 }
+                .categorias {
+                    flex-direction: column;
+                    align-items: center;
+                }
                 .categorias button {
-                    font-size: 13px;
-                    padding: 6px 10px;
+                    width: 90%;
+                    font-size: 14px;
+                    padding: 8px;
                 }
                 .descricao {
                     font-size: 13px;
@@ -122,16 +132,17 @@
                 .preco {
                     font-size: 15px;
                 }
-                p:dataViewGridItem {
-                    width: 100% !important;
-                }
-                /* Dialog responsivo */
                 .ui-dialog {
                     width: 90% !important;
                     max-width: 400px;
                 }
-                .ui-dialog h2, .ui-dialog h3, .ui-dialog p {
-                    text-align: center;
+            }
+
+            /* Cards em grid responsivo */
+            @media (max-width: 480px) {
+                .p-dataview .p-dataview-content .p-dataview-grid-item {
+                    width: 100% !important;
+                    margin-bottom: 15px;
                 }
             }
         </style>
