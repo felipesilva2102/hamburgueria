@@ -58,7 +58,7 @@ public class HamburguerBean implements Serializable {
         hamburgueres.add(new Material("X-Tudo de Frango", "hamburguer/x-frango.jpg", 13.00, "Carne de hambúrguer de frango, salsicha, ovo, queijo, p resunto, milho, ervilha, alface, tomate e batata palha."));
         hamburgueres.add(new Material("Baguete de Carne de Sol", "hamburguer/baguete-carne.jpg", 16.00, "Carne de sol desfiada, queijo, presunto, milho, ervilha, alface e tomate."));
         hamburgueres.add(new Material("Baguete de Frango", "hamburguer/baguete-frango.jpg", 16.00, "Carne de frango desfiada, queijo, presunto, milho, ervilha, alface e tomate."));
-        hamburgueres.add(new Material("Duplo Smash", "hamburguer/smash.jpg", 25.00, "teste"));
+        //hamburgueres.add(new Material("Duplo Smash", "hamburguer/smash.jpg", 25.00, "teste"));
         hamburgueres.add(new Material("Baguete de Calabresa", "hamburguer/baguete-calabresa.jpg", 16.00, "Calabresa, queijo, presunto, alface, tomate e pão de baguete."));
     }
 
