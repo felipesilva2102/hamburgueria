@@ -4,7 +4,7 @@
  */
 package com.hamburgueria.couxchiken.beans;
 
-import com.hamburgueria.couxchiken.construtores.Material;
+import com.hamburgueria.couxchiken.entity.Material;
 import jakarta.annotation.PostConstruct;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
@@ -78,13 +78,13 @@ public class HamburguerBean implements Serializable {
 
     public void preencherBebidas() {
         bebidas = new ArrayList<>();
-        bebidas.add(new Material("Suco de Mangaba", "bebidas/mangaba.png", 07.00, "teste"));
-        bebidas.add(new Material("Suco de Graviola", "bebidas/graviola.png", 07.00, "teste"));
-        bebidas.add(new Material("Suco de Laranja", "bebidas/laranja.png", 07.00, "teste"));
-        bebidas.add(new Material("Suco de Limão", "bebidas/limao.png", 07.00, "teste"));
-        bebidas.add(new Material("Suco de Uva", "bebidas/uva.jpg", 07.00, "teste"));
-        bebidas.add(new Material("Suco de Cajú", "bebidas/caju.jpg", 07.00, "teste"));
-        bebidas.add(new Material("Suco de Caja", "bebidas/caja.jpg", 07.00, "teste"));
+        bebidas.add(new Material("Suco de Mangaba", "bebidas/mangaba.png", 07.00, "Polpa fresca de mangaba batida com água gelada e um toque de açúcar."));
+        bebidas.add(new Material("Suco de Graviola", "bebidas/graviola.png", 07.00, "Polpa fresca de graviola batida com água gelada e um toque de açúcar."));
+        bebidas.add(new Material("Suco de Laranja", "bebidas/laranja.png", 07.00, "Polpa fresca de laranja batida com água gelada e um toque de açúcar."));
+        bebidas.add(new Material("Suco de Limão", "bebidas/limao.png", 07.00, "Polpa fresca de limão batida com água gelada e um toque de açúcar."));
+        bebidas.add(new Material("Suco de Uva", "bebidas/uva.jpg", 07.00, "Polpa fresca de uva batida com água gelada e um toque de açúcar."));
+        bebidas.add(new Material("Suco de Cajú", "bebidas/caju.jpg", 07.00, "Polpa fresca de cajú batida com água gelada e um toque de açúcar."));
+        bebidas.add(new Material("Suco de Caja", "bebidas/caja.jpg", 07.00, "Polpa fresca de cajá batida com água gelada e um toque de açúcar."));
         bebidas.add(new Material("Coca Cola Litro", "bebidas/cocacola.jpg", 10.00, "Coca Cola 1 Litro"));
         bebidas.add(new Material("Coca Cola Sem Açúcar", "bebidas/cocacolaSemAcucar.jpg", 10.00, "Coca Cola sem açúcar 1 Litro"));
         bebidas.add(new Material("Coca Cola Lata", "bebidas/cocalata.jpg", 06.00, "Refrigerante Lata"));
