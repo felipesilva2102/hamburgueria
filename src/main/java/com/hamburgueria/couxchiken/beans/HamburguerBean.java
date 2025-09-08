@@ -33,6 +33,8 @@ public class HamburguerBean implements Serializable {
     private transient List<Material> batatas;
 
     private String categoria;
+    
+    private transient Material produtoSelecionado;
 
     private boolean hamburguer = true;
     private boolean bebida;
