@@ -5,15 +5,132 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <h:head>
-        <title>Pedido - CouxChiken</title>
+        <title>Pedido - Coux Chicken</title>
+        <style>
+            :root {
+                --verde-lodo: #4CAF50;
+                --preto: #111111;
+                --cinza: #f4f4f4;
+            }
+
+            body {
+                font-family: 'Segoe UI', sans-serif;
+                margin: 0;
+                padding: 0;
+                background: var(--cinza);
+                color: var(--preto);
+            }
+
+            header {
+                background: var(--preto);
+                color: white;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 12px 24px;
+                box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+            }
+
+            header h1 {
+                font-size: 1.5rem;
+                margin: 0;
+                font-weight: bold;
+                color: var(--verde-lodo);
+            }
+
+            header img {
+                height: 50px;
+                border-radius: 6px;
+            }
+
+            header .status {
+                font-size: 1rem;
+                background: var(--verde-lodo);
+                padding: 4px 10px;
+                border-radius: 8px;
+                font-weight: bold;
+                color: white;
+            }
+
+            h3 {
+                margin-top: 25px;
+                color: var(--preto);
+                border-left: 5px solid var(--verde-lodo);
+                padding-left: 8px;
+            }
+
+            .tabela-produtos {
+                background: white;
+                border-radius: 8px;
+                overflow: hidden;
+                box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            }
+
+            .tabela-produtos th {
+                background: var(--verde-lodo) !important;
+                color: white !important;
+                text-align: center;
+            }
+
+            .tabela-produtos td {
+                text-align: center;
+                vertical-align: middle;
+            }
+
+            .btn-whatsapp {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+                background: var(--verde-lodo);
+                color: white;
+                font-size: 1.2rem;
+                font-weight: bold;
+                padding: 16px;
+                border-radius: 50px;
+                text-decoration: none;
+                margin-top: 20px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+                transition: all 0.3s ease-in-out;
+            }
+
+            .btn-whatsapp i {
+                font-size: 1.6rem;
+            }
+
+            .btn-whatsapp:hover {
+                background: #3c8c41;
+                transform: scale(1.05);
+                box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+            }
+
+            .label-col {
+                font-weight: bold;
+                color: var(--preto);
+            }
+
+            .input-col input,
+            .input-col textarea {
+                border-radius: 6px !important;
+                border: 1px solid #ccc !important;
+                padding: 6px !important;
+            }
+        </style>
     </h:head>
 
     <h:body>
-        <h:form id="formPedido">
+        <header>
+            <h:graphicImage value="imagens/logo.png" alt="Logo"/>
+            <h1>Coux Chicken</h1>
+            <span class="status">
+                <h:outputText value="#{hamburguerBean.aberto()}"/>
+            </span>
+        </header>
 
+        <h:form id="formPedido" style="padding:20px; max-width:1200px; margin:auto;">
             <p:growl id="mensagens" showDetail="true" life="4000"/>
 
-            <h3 style="margin-top:20px;">Seus Dados</h3>
+            <h3>Seus Dados</h3>
             <p:panelGrid columns="2" columnClasses="label-col,input-col" style="width:100%; gap:10px;">
                 <p:outputLabel for="nome" value="Nome:"/>
                 <p:inputText id="nome" value="#{pedidoBean.pedido.nome}" required="true" style="width:100%"/>
@@ -25,11 +142,10 @@
                 <p:inputTextarea id="endereco" value="#{pedidoBean.pedido.endereco}" autoResize="true" required="true" style="width:100%"/>
             </p:panelGrid>
 
-            <p:accordionPanel multiple="false" activeIndex="">
-
-                <!-- Hamburgueres -->
+            <p:accordionPanel multiple="false">
+                <!-- HAMBÚRGUERES -->
                 <p:tab title="Hambúrgueres">
-                    <p:dataTable id="dtHamburguer" value="#{pedidoBean.hamburgueres}" var="item" styleClass="tabela-produtos">
+                    <p:dataTable id="dtHamburguer" value="#{pedidoBean.hamburgueres}" var="item" rowIndexVar="idx" styleClass="tabela-produtos">
                         <p:column headerText="Imagem">
                             <p:graphicImage value="#{item.imagem}" style="max-width:70px; border-radius:6px"/>
                         </p:column>
@@ -41,24 +157,25 @@
                             </h:outputText>
                         </p:column>
                         <p:column headerText="Qtd">
-                            <p:spinner id="spinnerQtd"
-                                       value="#{item.quantidade}"
-                                       min="0" max="20"
-                                       widgetVar="spinner_#{item.nome}"/>
+                            <p:spinner id="spinnerQtd" value="#{item.quantidade}" min="0" max="20" widgetVar="spinner_#{item.nome}"/>
                         </p:column>
                         <p:column headerText="Ações">
                             <p:commandButton value="Adicionar"
                                              actionListener="#{pedidoBean.adicionarItem(item)}"
                                              process="@this spinnerQtd"
-                                             update=":formPedido:dtHamburguer :formPedido:mensagens :formPedido:resumoPedido"
-                                             oncomplete="spinner_#{item.nome}.setValue(0)"/>
+                                             update=":formPedido:resumoPedido :formPedido:mensagens"
+                                             partialSubmit="true"
+                                             oncomplete="
+                                             spinner_#{item.nome}.setValue(0);
+                                             var el = document.getElementById('formPedido:dtHamburguer:#{idx}');
+                                             if(el){ el.scrollIntoView({behavior:'smooth', block:'center'}); }"/>
                         </p:column>
                     </p:dataTable>
                 </p:tab>
 
-                <!-- Hambúrgueres Artesanais -->
+                <!-- HAMBÚRGUERES ARTESANAIS -->
                 <p:tab title="Hambúrgueres Artesanais">
-                    <p:dataTable id="dtHamburguerArtesanal" value="#{pedidoBean.hamburgueresArtesanais}" var="item" styleClass="tabela-produtos">
+                    <p:dataTable id="dtHamburguerArtesanal" value="#{pedidoBean.hamburgueresArtesanais}" var="item" rowIndexVar="idx" styleClass="tabela-produtos">
                         <p:column headerText="Imagem">
                             <p:graphicImage value="#{item.imagem}" style="max-width:70px; border-radius:6px"/>
                         </p:column>
@@ -70,24 +187,25 @@
                             </h:outputText>
                         </p:column>
                         <p:column headerText="Qtd">
-                            <p:spinner id="spinnerQtd"
-                                       value="#{item.quantidade}"
-                                       min="0" max="20"
-                                       widgetVar="spinner_#{item.nome}"/>
+                            <p:spinner id="spinnerQtd" value="#{item.quantidade}" min="0" max="20" widgetVar="spinner_#{item.nome}"/>
                         </p:column>
                         <p:column headerText="Ações">
                             <p:commandButton value="Adicionar"
                                              actionListener="#{pedidoBean.adicionarItem(item)}"
                                              process="@this spinnerQtd"
-                                             update=":formPedido:dtHamburguerArtesanal :formPedido:mensagens :formPedido:resumoPedido"
-                                             oncomplete="spinner_#{item.nome}.setValue(0)"/>
+                                             update=":formPedido:resumoPedido :formPedido:mensagens"
+                                             partialSubmit="true"
+                                             oncomplete="
+                                             spinner_#{item.nome}.setValue(0);
+                                             var el = document.getElementById('formPedido:dtHamburguerArtesanal:#{idx}');
+                                             if(el){ el.scrollIntoView({behavior:'smooth', block:'center'}); }"/>
                         </p:column>
                     </p:dataTable>
                 </p:tab>
 
-                <!-- Batatas -->
+                <!-- BATATAS -->
                 <p:tab title="Batatas">
-                    <p:dataTable id="dtBatatas" value="#{pedidoBean.batatas}" var="item" styleClass="tabela-produtos">
+                    <p:dataTable id="dtBatatas" value="#{pedidoBean.batatas}" var="item" rowIndexVar="idx" styleClass="tabela-produtos">
                         <p:column headerText="Imagem">
                             <p:graphicImage value="#{item.imagem}" style="max-width:70px; border-radius:6px"/>
                         </p:column>
@@ -99,24 +217,25 @@
                             </h:outputText>
                         </p:column>
                         <p:column headerText="Qtd">
-                            <p:spinner id="spinnerQtd"
-                                       value="#{item.quantidade}"
-                                       min="0" max="20"
-                                       widgetVar="spinner_#{item.nome}"/>
+                            <p:spinner id="spinnerQtd" value="#{item.quantidade}" min="0" max="20" widgetVar="spinner_#{item.nome}"/>
                         </p:column>
                         <p:column headerText="Ações">
                             <p:commandButton value="Adicionar"
                                              actionListener="#{pedidoBean.adicionarItem(item)}"
                                              process="@this spinnerQtd"
-                                             update=":formPedido:dtBatatas :formPedido:mensagens :formPedido:resumoPedido"
-                                             oncomplete="spinner_#{item.nome}.setValue(0)"/>
+                                             update=":formPedido:resumoPedido :formPedido:mensagens"
+                                             partialSubmit="true"
+                                             oncomplete="
+                                             spinner_#{item.nome}.setValue(0);
+                                             var el = document.getElementById('formPedido:dtBatatas:#{idx}');
+                                             if(el){ el.scrollIntoView({behavior:'smooth', block:'center'}); }"/>
                         </p:column>
                     </p:dataTable>
                 </p:tab>
 
-                <!-- Cachorros Quente -->
+                <!-- CACHORRO-QUENTE -->
                 <p:tab title="Cachorros-Quente">
-                    <p:dataTable id="dtCachorroQuente" value="#{pedidoBean.cachorrosQuente}" var="item" styleClass="tabela-produtos">
+                    <p:dataTable id="dtCachorroQuente" value="#{pedidoBean.cachorrosQuente}" var="item" rowIndexVar="idx" styleClass="tabela-produtos">
                         <p:column headerText="Imagem">
                             <p:graphicImage value="#{item.imagem}" style="max-width:70px; border-radius:6px"/>
                         </p:column>
@@ -128,24 +247,25 @@
                             </h:outputText>
                         </p:column>
                         <p:column headerText="Qtd">
-                            <p:spinner id="spinnerQtd"
-                                       value="#{item.quantidade}"
-                                       min="0" max="20"
-                                       widgetVar="spinner_#{item.nome}"/>
+                            <p:spinner id="spinnerQtd" value="#{item.quantidade}" min="0" max="20" widgetVar="spinner_#{item.nome}"/>
                         </p:column>
                         <p:column headerText="Ações">
                             <p:commandButton value="Adicionar"
                                              actionListener="#{pedidoBean.adicionarItem(item)}"
                                              process="@this spinnerQtd"
-                                             update=":formPedido:dtCachorroQuente :formPedido:mensagens :formPedido:resumoPedido"
-                                             oncomplete="spinner_#{item.nome}.setValue(0)"/>
+                                             update=":formPedido:resumoPedido :formPedido:mensagens"
+                                             partialSubmit="true"
+                                             oncomplete="
+                                             spinner_#{item.nome}.setValue(0);
+                                             var el = document.getElementById('formPedido:dtCachorroQuente:#{idx}');
+                                             if(el){ el.scrollIntoView({behavior:'smooth', block:'center'}); }"/>
                         </p:column>
                     </p:dataTable>
                 </p:tab>
 
-                <!-- Pastéis -->
+                <!-- PASTÉIS -->
                 <p:tab title="Pastéis">
-                    <p:dataTable id="dtPasteis" value="#{pedidoBean.pasteis}" var="item" styleClass="tabela-produtos">
+                    <p:dataTable id="dtPasteis" value="#{pedidoBean.pasteis}" var="item" rowIndexVar="idx" styleClass="tabela-produtos">
                         <p:column headerText="Imagem">
                             <p:graphicImage value="#{item.imagem}" style="max-width:70px; border-radius:6px"/>
                         </p:column>
@@ -157,24 +277,25 @@
                             </h:outputText>
                         </p:column>
                         <p:column headerText="Qtd">
-                            <p:spinner id="spinnerQtd"
-                                       value="#{item.quantidade}"
-                                       min="0" max="20"
-                                       widgetVar="spinner_#{item.nome}"/>
+                            <p:spinner id="spinnerQtd" value="#{item.quantidade}" min="0" max="20" widgetVar="spinner_#{item.nome}"/>
                         </p:column>
                         <p:column headerText="Ações">
                             <p:commandButton value="Adicionar"
                                              actionListener="#{pedidoBean.adicionarItem(item)}"
                                              process="@this spinnerQtd"
-                                             update=":formPedido:dtPasteis :formPedido:mensagens :formPedido:resumoPedido"
-                                             oncomplete="spinner_#{item.nome}.setValue(0)"/>
+                                             update=":formPedido:resumoPedido :formPedido:mensagens"
+                                             partialSubmit="true"
+                                             oncomplete="
+                                             spinner_#{item.nome}.setValue(0);
+                                             var el = document.getElementById('formPedido:dtPasteis:#{idx}');
+                                             if(el){ el.scrollIntoView({behavior:'smooth', block:'center'}); }"/>
                         </p:column>
                     </p:dataTable>
                 </p:tab>
 
-                <!-- Bebidas -->
+                <!-- BEBIDAS -->
                 <p:tab title="Bebidas">
-                    <p:dataTable id="dtBebidas" value="#{pedidoBean.bebidas}" var="item" styleClass="tabela-produtos">
+                    <p:dataTable id="dtBebidas" value="#{pedidoBean.bebidas}" var="item" rowIndexVar="idx" styleClass="tabela-produtos">
                         <p:column headerText="Imagem">
                             <p:graphicImage value="#{item.imagem}" style="max-width:70px; border-radius:6px"/>
                         </p:column>
@@ -186,50 +307,47 @@
                             </h:outputText>
                         </p:column>
                         <p:column headerText="Qtd">
-                            <p:spinner id="spinnerQtd"
-                                       value="#{item.quantidade}"
-                                       min="0" max="20"
-                                       widgetVar="spinner_#{item.nome}"/>
+                            <p:spinner id="spinnerQtd" value="#{item.quantidade}" min="0" max="20" widgetVar="spinner_#{item.nome}"/>
                         </p:column>
                         <p:column headerText="Ações">
                             <p:commandButton value="Adicionar"
                                              actionListener="#{pedidoBean.adicionarItem(item)}"
                                              process="@this spinnerQtd"
-                                             update=":formPedido:dtBebidas :formPedido:mensagens :formPedido:resumoPedido"
-                                             oncomplete="spinner_#{item.nome}.setValue(0)"/>
+                                             update=":formPedido:resumoPedido :formPedido:mensagens"
+                                             partialSubmit="true"
+                                             oncomplete="
+                                             spinner_#{item.nome}.setValue(0);
+                                             var el = document.getElementById('formPedido:dtBebidas:#{idx}');
+                                             if(el){ el.scrollIntoView({behavior:'smooth', block:'center'}); }"/>
                         </p:column>
                     </p:dataTable>
                 </p:tab>
-
             </p:accordionPanel>
 
             <h3>Resumo do Pedido</h3>
             <h:panelGroup id="resumoPedido">
-
-                <p:dataTable value="#{pedidoBean.pedido.itens}" var="p" style="width:100%">
-                    <p:column headerText="Item">#{p.nome}</p:column>
-                    <p:column headerText="Qtd">#{p.quantidade}</p:column>
-                    <p:column headerText="Preço">
+                <p:dataTable value="#{pedidoBean.pedido.itens}" var="p" styleClass="tabela-produtos" style="width:100%">
+                    <p:column headerText="Item" style="text-align: center;">#{p.nome}</p:column>
+                    <p:column headerText="Qtd" style="text-align: center;">#{p.quantidade}</p:column>
+                    <p:column headerText="Preço" style="text-align: center;">
                         <h:outputText value="#{p.preco}">
                             <f:convertNumber pattern="R$ 00.00"/>
                         </h:outputText>
                     </p:column>
                 </p:dataTable>
 
-                <h:outputText value="Total: R$ #{pedidoBean.calcularTotal()}" style="margin-top:10px; font-weight:bold; display:block;" />
+                <h:outputText value="Total: R$ #{pedidoBean.calcularTotal()}" 
+                              style="margin-top:10px; font-weight:bold; display:block;">
+                    <f:convertNumber pattern="R$ 00.00"/>
+                </h:outputText>
 
                 <p:outputLabel for="observacao" value="Observações:" style="margin-top:10px; display:block;"/>
                 <p:inputTextarea id="observacao" value="#{pedidoBean.pedido.observacao}" autoResize="true" style="width:100%"/>
-
             </h:panelGroup>
 
-
-            <!-- Botão de Finalizar Pedido -->
-            <p:commandButton value="Finalizar Pedido"
-                             actionListener="#{pedidoBean.finalizarPedido}"
-                             update=":formPedido:mensagens"
-                             style="margin-top:20px;" />
-
+            <a href="https://wa.me/5584994537977?text=#{pedidoBean.mensagemWhatsapp}" target="_blank" class="btn-whatsapp">
+                <i class="pi pi-whatsapp"></i> Fazer pedido
+            </a>
         </h:form>
     </h:body>
 </html>

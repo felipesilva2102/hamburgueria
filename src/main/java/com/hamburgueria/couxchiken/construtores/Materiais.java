@@ -98,8 +98,8 @@ public class Materiais {
     public List<Material> preencherBatatas() {
         batatas = new ArrayList<>();
         batatas.add(new Material("Batatinha Frita Natural", "batata-frita/natural.jpg", 20.00, "Batata frita", 0));
-        batatas.add(new Material("Batatinha Frita Recheada", "batata-frita/queijoCheddar.jpg", 25.00, "Batata frita com calabresa e cheddar.", 0));
-        batatas.add(new Material("Batatinha Frita Recheada", "batata-frita/queijoBacon.jpg", 25.00, "Batata frita com bacon e cheddar.", 0));
+        batatas.add(new Material("Batatinha Frita Recheada Com Calabresa", "batata-frita/queijoCheddar.jpg", 25.00, "Batata frita com calabresa e cheddar.", 0));
+        batatas.add(new Material("Batatinha Frita Recheada Com Bacon", "batata-frita/queijoBacon.jpg", 25.00, "Batata frita com bacon e cheddar.", 0));
 
         return batatas;
     }

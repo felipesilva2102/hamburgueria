@@ -2,7 +2,6 @@ package com.hamburgueria.couxchiken.beans;
 
 import com.hamburgueria.couxchiken.construtores.Materiais;
 import com.hamburgueria.couxchiken.entity.Pedido;
-import com.hamburgueria.couxchiken.repository.PedidoRepository;
 import com.hamburgueria.couxchiken.entity.Material;
 import jakarta.annotation.PostConstruct;
 import jakarta.faces.application.FacesMessage;
@@ -11,6 +10,9 @@ import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.text.DecimalFormat;
 import java.util.List;
 import lombok.Getter;
@@ -32,12 +34,11 @@ public class PedidoBean implements Serializable {
     private transient List<Material> cachorrosQuente;
     private transient List<Material> pasteis;
     private transient List<Material> batatas;
+    
+    StringBuilder resumo = new StringBuilder();
 
     @Inject
     private transient Materiais materiais;
-    
-    @Inject
-    private transient PedidoRepository pedidoRepository;
 
     @PostConstruct
     public void init() {
@@ -65,12 +66,13 @@ public class PedidoBean implements Serializable {
     }
 
     public void finalizarPedido() {
+        resumo = new StringBuilder();
         if (pedido.getItens().isEmpty()) {
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_WARN, "Atenção", "Nenhum item selecionado no pedido."));
             return;
         }
-
+        
         if (pedido.getNome() == null || pedido.getNome().isBlank()
                 || pedido.getTelefone() == null || pedido.getTelefone().isBlank()
                 || pedido.getEndereco() == null || pedido.getEndereco().isBlank()) {
@@ -82,8 +84,7 @@ public class PedidoBean implements Serializable {
 
         DecimalFormat df = new DecimalFormat("0.00");
         double total = pedido.calcularTotal();
-        StringBuilder resumo = new StringBuilder();
-
+        
         resumo.append("📋 *Resumo do Pedido*\n\n");
 
         for (Material item : pedido.getItens()) {
@@ -105,11 +106,19 @@ public class PedidoBean implements Serializable {
         // Mensagem JSF
         FacesContext.getCurrentInstance().addMessage(null,
                 new FacesMessage(FacesMessage.SEVERITY_INFO, "Pedido Finalizado", resumo.toString()));
-
-        pedidoRepository.save(pedido);
     }
 
     public Double calcularTotal() {
         return pedido.calcularTotal();
     }
+
+    public String getMensagemWhatsapp() {
+        finalizarPedido(); // garante que resumo foi montado e validado
+        try {
+            return URLEncoder.encode(resumo.toString(), StandardCharsets.UTF_8.toString());
+        } catch (UnsupportedEncodingException e) {
+            return "Erro ao gerar mensagem.";
+        }
+    }
+
 }
