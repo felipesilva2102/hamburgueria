@@ -3,9 +3,9 @@ FROM maven:3.9.6-eclipse-temurin-21 AS build
 
 WORKDIR /app
 
-# Copiar pom.xml e baixar dependências offline
+# Copiar pom.xml e baixar dependências (exceto o plugin de deploy)
 COPY pom.xml .
-RUN mvn dependency:go-offline -B
+RUN mvn dependency:resolve -B
 
 # Copiar o código-fonte e buildar o WAR
 COPY src ./src
