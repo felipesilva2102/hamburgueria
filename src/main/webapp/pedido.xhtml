@@ -172,15 +172,14 @@
     </h:head>
 
     <h:body>
-        <header>
-            <h:graphicImage value="imagens/logo.png" alt="Logo"/>
-            <h1>Coux Chicken</h1>
-            <span class="status">
-                <h:outputText value="#{hamburguerBean.aberto()}"/>
-            </span>
-        </header>
-
         <h:form id="formPedido">
+            <header>
+                <h:graphicImage value="imagens/logo.png" alt="Logo"/>
+                <h1>Coux Chicken</h1>
+                <span class="status">
+                    <h:outputText value="#{hamburguerBean.aberto()}"/>
+                </span>
+            </header>
             <p:growl id="mensagens" showDetail="true" life="4000"/>
 
             <h3>Seus Dados</h3>
