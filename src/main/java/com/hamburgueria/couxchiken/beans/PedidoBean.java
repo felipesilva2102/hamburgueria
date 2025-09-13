@@ -63,6 +63,8 @@ public class PedidoBean implements Serializable {
             pedido.adicionarItem(m);
             wrapper.setQuantidade(0);
         }
+        FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_WARN, "Atenção", wrapper.getNome()+ " inserido!"));
     }
 
     public void finalizarPedido() {

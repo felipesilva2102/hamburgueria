@@ -21,6 +21,7 @@
                 color: var(--preto);
             }
 
+            /* ====== HEADER ====== */
             header {
                 background: var(--preto);
                 color: white;
@@ -29,6 +30,8 @@
                 justify-content: space-between;
                 padding: 12px 24px;
                 box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+                flex-wrap: wrap; /* Permite quebrar linha no mobile */
+                gap: 10px;
             }
 
             header h1 {
@@ -44,7 +47,7 @@
             }
 
             header .status {
-                font-size: 1rem;
+                font-size: 0.9rem;
                 background: var(--verde-lodo);
                 padding: 4px 10px;
                 border-radius: 8px;
@@ -52,6 +55,7 @@
                 color: white;
             }
 
+            /* ====== TITULOS ====== */
             h3 {
                 margin-top: 25px;
                 color: var(--preto);
@@ -59,10 +63,11 @@
                 padding-left: 8px;
             }
 
+            /* ====== TABELAS ====== */
             .tabela-produtos {
                 background: white;
                 border-radius: 8px;
-                overflow: hidden;
+                overflow-x: auto; /* Permite scroll no mobile */
                 box-shadow: 0 2px 6px rgba(0,0,0,0.1);
             }
 
@@ -75,8 +80,25 @@
             .tabela-produtos td {
                 text-align: center;
                 vertical-align: middle;
+                padding: 8px;
             }
 
+            /* ====== FORM ====== */
+            .label-col {
+                font-weight: bold;
+                color: var(--preto);
+            }
+
+            .input-col input,
+            .input-col textarea {
+                border-radius: 6px !important;
+                border: 1px solid #ccc !important;
+                padding: 6px !important;
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            /* ====== BOTÃO WHATSAPP ====== */
             .btn-whatsapp {
                 display: flex;
                 align-items: center;
@@ -89,7 +111,8 @@
                 padding: 16px;
                 border-radius: 50px;
                 text-decoration: none;
-                margin-top: 20px;
+                margin: 20px auto;
+                max-width: 400px;
                 box-shadow: 0 4px 12px rgba(0,0,0,0.3);
                 transition: all 0.3s ease-in-out;
             }
@@ -104,16 +127,46 @@
                 box-shadow: 0 6px 18px rgba(0,0,0,0.4);
             }
 
-            .label-col {
-                font-weight: bold;
-                color: var(--preto);
+            /* ====== RESPONSIVIDADE ====== */
+            @media (max-width: 768px) {
+                header {
+                    flex-direction: column;
+                    text-align: center;
+                }
+
+                header img {
+                    height: 40px;
+                }
+
+                header h1 {
+                    font-size: 1.2rem;
+                }
+
+                .tabela-produtos th,
+                .tabela-produtos td {
+                    font-size: 0.9rem;
+                    padding: 6px;
+                }
+
+                .btn-whatsapp {
+                    font-size: 1rem;
+                    padding: 12px;
+                }
             }
 
-            .input-col input,
-            .input-col textarea {
-                border-radius: 6px !important;
-                border: 1px solid #ccc !important;
-                padding: 6px !important;
+            @media (max-width: 480px) {
+                h3 {
+                    font-size: 1rem;
+                }
+
+                .tabela-produtos {
+                    font-size: 0.85rem;
+                }
+
+                .btn-whatsapp {
+                    width: 100%;
+                    border-radius: 12px;
+                }
             }
         </style>
     </h:head>
@@ -146,9 +199,6 @@
                 <!-- HAMBÚRGUERES -->
                 <p:tab title="Hambúrgueres">
                     <p:dataTable id="dtHamburguer" value="#{pedidoBean.hamburgueres}" var="item" rowIndexVar="idx" styleClass="tabela-produtos">
-                        <p:column headerText="Imagem">
-                            <p:graphicImage value="#{item.imagem}" style="max-width:70px; border-radius:6px"/>
-                        </p:column>
                         <p:column headerText="Nome">#{item.nome}</p:column>
                         <p:column headerText="Descrição">#{item.descricao}</p:column>
                         <p:column headerText="Preço">
@@ -163,12 +213,7 @@
                             <p:commandButton value="Adicionar"
                                              actionListener="#{pedidoBean.adicionarItem(item)}"
                                              process="@this spinnerQtd"
-                                             update=":formPedido:resumoPedido :formPedido:mensagens"
-                                             partialSubmit="true"
-                                             oncomplete="
-                                             spinner_#{item.nome}.setValue(0);
-                                             var el = document.getElementById('formPedido:dtHamburguer:#{idx}');
-                                             if(el){ el.scrollIntoView({behavior:'smooth', block:'center'}); }"/>
+                                             update="dtHamburguer :formPedido:resumoPedido :formPedido:mensagens"/>
                         </p:column>
                     </p:dataTable>
                 </p:tab>
@@ -176,9 +221,6 @@
                 <!-- HAMBÚRGUERES ARTESANAIS -->
                 <p:tab title="Hambúrgueres Artesanais">
                     <p:dataTable id="dtHamburguerArtesanal" value="#{pedidoBean.hamburgueresArtesanais}" var="item" rowIndexVar="idx" styleClass="tabela-produtos">
-                        <p:column headerText="Imagem">
-                            <p:graphicImage value="#{item.imagem}" style="max-width:70px; border-radius:6px"/>
-                        </p:column>
                         <p:column headerText="Nome">#{item.nome}</p:column>
                         <p:column headerText="Descrição">#{item.descricao}</p:column>
                         <p:column headerText="Preço">
@@ -193,12 +235,7 @@
                             <p:commandButton value="Adicionar"
                                              actionListener="#{pedidoBean.adicionarItem(item)}"
                                              process="@this spinnerQtd"
-                                             update=":formPedido:resumoPedido :formPedido:mensagens"
-                                             partialSubmit="true"
-                                             oncomplete="
-                                             spinner_#{item.nome}.setValue(0);
-                                             var el = document.getElementById('formPedido:dtHamburguerArtesanal:#{idx}');
-                                             if(el){ el.scrollIntoView({behavior:'smooth', block:'center'}); }"/>
+                                             update="dtHamburguerArtesanal :formPedido:resumoPedido :formPedido:mensagens"/>
                         </p:column>
                     </p:dataTable>
                 </p:tab>
@@ -206,9 +243,6 @@
                 <!-- BATATAS -->
                 <p:tab title="Batatas">
                     <p:dataTable id="dtBatatas" value="#{pedidoBean.batatas}" var="item" rowIndexVar="idx" styleClass="tabela-produtos">
-                        <p:column headerText="Imagem">
-                            <p:graphicImage value="#{item.imagem}" style="max-width:70px; border-radius:6px"/>
-                        </p:column>
                         <p:column headerText="Nome">#{item.nome}</p:column>
                         <p:column headerText="Descrição">#{item.descricao}</p:column>
                         <p:column headerText="Preço">
@@ -223,12 +257,7 @@
                             <p:commandButton value="Adicionar"
                                              actionListener="#{pedidoBean.adicionarItem(item)}"
                                              process="@this spinnerQtd"
-                                             update=":formPedido:resumoPedido :formPedido:mensagens"
-                                             partialSubmit="true"
-                                             oncomplete="
-                                             spinner_#{item.nome}.setValue(0);
-                                             var el = document.getElementById('formPedido:dtBatatas:#{idx}');
-                                             if(el){ el.scrollIntoView({behavior:'smooth', block:'center'}); }"/>
+                                             update="dtBatatas :formPedido:resumoPedido :formPedido:mensagens"/>
                         </p:column>
                     </p:dataTable>
                 </p:tab>
@@ -236,9 +265,6 @@
                 <!-- CACHORRO-QUENTE -->
                 <p:tab title="Cachorros-Quente">
                     <p:dataTable id="dtCachorroQuente" value="#{pedidoBean.cachorrosQuente}" var="item" rowIndexVar="idx" styleClass="tabela-produtos">
-                        <p:column headerText="Imagem">
-                            <p:graphicImage value="#{item.imagem}" style="max-width:70px; border-radius:6px"/>
-                        </p:column>
                         <p:column headerText="Nome">#{item.nome}</p:column>
                         <p:column headerText="Descrição">#{item.descricao}</p:column>
                         <p:column headerText="Preço">
@@ -253,12 +279,7 @@
                             <p:commandButton value="Adicionar"
                                              actionListener="#{pedidoBean.adicionarItem(item)}"
                                              process="@this spinnerQtd"
-                                             update=":formPedido:resumoPedido :formPedido:mensagens"
-                                             partialSubmit="true"
-                                             oncomplete="
-                                             spinner_#{item.nome}.setValue(0);
-                                             var el = document.getElementById('formPedido:dtCachorroQuente:#{idx}');
-                                             if(el){ el.scrollIntoView({behavior:'smooth', block:'center'}); }"/>
+                                             update="dtCachorroQuente :formPedido:resumoPedido :formPedido:mensagens"/>
                         </p:column>
                     </p:dataTable>
                 </p:tab>
@@ -266,9 +287,6 @@
                 <!-- PASTÉIS -->
                 <p:tab title="Pastéis">
                     <p:dataTable id="dtPasteis" value="#{pedidoBean.pasteis}" var="item" rowIndexVar="idx" styleClass="tabela-produtos">
-                        <p:column headerText="Imagem">
-                            <p:graphicImage value="#{item.imagem}" style="max-width:70px; border-radius:6px"/>
-                        </p:column>
                         <p:column headerText="Nome">#{item.nome}</p:column>
                         <p:column headerText="Descrição">#{item.descricao}</p:column>
                         <p:column headerText="Preço">
@@ -283,12 +301,7 @@
                             <p:commandButton value="Adicionar"
                                              actionListener="#{pedidoBean.adicionarItem(item)}"
                                              process="@this spinnerQtd"
-                                             update=":formPedido:resumoPedido :formPedido:mensagens"
-                                             partialSubmit="true"
-                                             oncomplete="
-                                             spinner_#{item.nome}.setValue(0);
-                                             var el = document.getElementById('formPedido:dtPasteis:#{idx}');
-                                             if(el){ el.scrollIntoView({behavior:'smooth', block:'center'}); }"/>
+                                             update="dtPasteis :formPedido:resumoPedido :formPedido:mensagens"/>
                         </p:column>
                     </p:dataTable>
                 </p:tab>
@@ -296,9 +309,6 @@
                 <!-- BEBIDAS -->
                 <p:tab title="Bebidas">
                     <p:dataTable id="dtBebidas" value="#{pedidoBean.bebidas}" var="item" rowIndexVar="idx" styleClass="tabela-produtos">
-                        <p:column headerText="Imagem">
-                            <p:graphicImage value="#{item.imagem}" style="max-width:70px; border-radius:6px"/>
-                        </p:column>
                         <p:column headerText="Nome">#{item.nome}</p:column>
                         <p:column headerText="Descrição">#{item.descricao}</p:column>
                         <p:column headerText="Preço">
@@ -313,12 +323,7 @@
                             <p:commandButton value="Adicionar"
                                              actionListener="#{pedidoBean.adicionarItem(item)}"
                                              process="@this spinnerQtd"
-                                             update=":formPedido:resumoPedido :formPedido:mensagens"
-                                             partialSubmit="true"
-                                             oncomplete="
-                                             spinner_#{item.nome}.setValue(0);
-                                             var el = document.getElementById('formPedido:dtBebidas:#{idx}');
-                                             if(el){ el.scrollIntoView({behavior:'smooth', block:'center'}); }"/>
+                                             update="dtBebidas :formPedido:resumoPedido :formPedido:mensagens"/>
                         </p:column>
                     </p:dataTable>
                 </p:tab>
