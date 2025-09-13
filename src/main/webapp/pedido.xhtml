@@ -119,14 +119,15 @@
     </h:head>
 
     <h:body>
-        <h:form id="formPedido" style="padding:20px; max-width:800px; margin:auto;">
-            <header>
-                <h:graphicImage value="imagens/logo.png" alt="Logo"/>
-                <h1>Coux Chicken</h1>
-                <span class="status">
-                    <h:outputText value="#{hamburguerBean.aberto()}"/>
-                </span>
-            </header>
+        <header>
+            <h:graphicImage value="imagens/logo.png" alt="Logo"/>
+            <h1>Coux Chicken</h1>
+            <span class="status">
+                <h:outputText value="#{hamburguerBean.aberto()}"/>
+            </span>
+        </header>
+
+        <h:form id="formPedido" style="padding:20px; max-width:1200px; margin:auto;">
             <p:growl id="mensagens" showDetail="true" life="4000"/>
 
             <h3>Seus Dados</h3>
@@ -162,7 +163,12 @@
                             <p:commandButton value="Adicionar"
                                              actionListener="#{pedidoBean.adicionarItem(item)}"
                                              process="@this spinnerQtd"
-                                             update="dtHamburguer :formPedido:resumoPedido :formPedido:mensagens"/>
+                                             update=":formPedido:resumoPedido :formPedido:mensagens"
+                                             partialSubmit="true"
+                                             oncomplete="
+                                             spinner_#{item.nome}.setValue(0);
+                                             var el = document.getElementById('formPedido:dtHamburguer:#{idx}');
+                                             if(el){ el.scrollIntoView({behavior:'smooth', block:'center'}); }"/>
                         </p:column>
                     </p:dataTable>
                 </p:tab>
@@ -187,7 +193,12 @@
                             <p:commandButton value="Adicionar"
                                              actionListener="#{pedidoBean.adicionarItem(item)}"
                                              process="@this spinnerQtd"
-                                             update="dtHamburguerArtesanal :formPedido:resumoPedido :formPedido:mensagens"/>
+                                             update=":formPedido:resumoPedido :formPedido:mensagens"
+                                             partialSubmit="true"
+                                             oncomplete="
+                                             spinner_#{item.nome}.setValue(0);
+                                             var el = document.getElementById('formPedido:dtHamburguerArtesanal:#{idx}');
+                                             if(el){ el.scrollIntoView({behavior:'smooth', block:'center'}); }"/>
                         </p:column>
                     </p:dataTable>
                 </p:tab>
@@ -212,7 +223,12 @@
                             <p:commandButton value="Adicionar"
                                              actionListener="#{pedidoBean.adicionarItem(item)}"
                                              process="@this spinnerQtd"
-                                             update="dtBatatas :formPedido:resumoPedido :formPedido:mensagens"/>
+                                             update=":formPedido:resumoPedido :formPedido:mensagens"
+                                             partialSubmit="true"
+                                             oncomplete="
+                                             spinner_#{item.nome}.setValue(0);
+                                             var el = document.getElementById('formPedido:dtBatatas:#{idx}');
+                                             if(el){ el.scrollIntoView({behavior:'smooth', block:'center'}); }"/>
                         </p:column>
                     </p:dataTable>
                 </p:tab>
@@ -237,7 +253,12 @@
                             <p:commandButton value="Adicionar"
                                              actionListener="#{pedidoBean.adicionarItem(item)}"
                                              process="@this spinnerQtd"
-                                             update="dtCachorroQuente :formPedido:resumoPedido :formPedido:mensagens"/>
+                                             update=":formPedido:resumoPedido :formPedido:mensagens"
+                                             partialSubmit="true"
+                                             oncomplete="
+                                             spinner_#{item.nome}.setValue(0);
+                                             var el = document.getElementById('formPedido:dtCachorroQuente:#{idx}');
+                                             if(el){ el.scrollIntoView({behavior:'smooth', block:'center'}); }"/>
                         </p:column>
                     </p:dataTable>
                 </p:tab>
@@ -262,7 +283,12 @@
                             <p:commandButton value="Adicionar"
                                              actionListener="#{pedidoBean.adicionarItem(item)}"
                                              process="@this spinnerQtd"
-                                             update="dtPasteis :formPedido:resumoPedido :formPedido:mensagens"/>
+                                             update=":formPedido:resumoPedido :formPedido:mensagens"
+                                             partialSubmit="true"
+                                             oncomplete="
+                                             spinner_#{item.nome}.setValue(0);
+                                             var el = document.getElementById('formPedido:dtPasteis:#{idx}');
+                                             if(el){ el.scrollIntoView({behavior:'smooth', block:'center'}); }"/>
                         </p:column>
                     </p:dataTable>
                 </p:tab>
@@ -287,7 +313,12 @@
                             <p:commandButton value="Adicionar"
                                              actionListener="#{pedidoBean.adicionarItem(item)}"
                                              process="@this spinnerQtd"
-                                             update="dtBebidas :formPedido:resumoPedido :formPedido:mensagens"/>
+                                             update=":formPedido:resumoPedido :formPedido:mensagens"
+                                             partialSubmit="true"
+                                             oncomplete="
+                                             spinner_#{item.nome}.setValue(0);
+                                             var el = document.getElementById('formPedido:dtBebidas:#{idx}');
+                                             if(el){ el.scrollIntoView({behavior:'smooth', block:'center'}); }"/>
                         </p:column>
                     </p:dataTable>
                 </p:tab>
