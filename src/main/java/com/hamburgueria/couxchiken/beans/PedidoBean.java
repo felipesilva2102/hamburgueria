@@ -66,7 +66,6 @@ public class PedidoBean implements Serializable {
     }
 
     public void finalizarPedido() {
-        resumo = new StringBuilder();
         if (pedido.getItens().isEmpty()) {
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_WARN, "Atenção", "Nenhum item selecionado no pedido."));
