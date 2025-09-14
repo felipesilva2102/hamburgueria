@@ -53,4 +53,5 @@ public class Material {
         this.descricao = descricao;
         this.quantidade = 0; // inicializa em 0
     }
+    
 }
