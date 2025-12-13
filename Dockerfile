@@ -1,27 +1,27 @@
-# Etapa 1: Build do WAR usando Maven
-FROM maven:3.9.8-eclipse-temurin-21 AS build
+# ===== Etapa 1: Build =====
+FROM maven:3.9.6-eclipse-temurin-21 AS build
 
-# Diretório de trabalho dentro do container
 WORKDIR /app
 
-# Copiar arquivos do projeto Maven
+# Copiar pom.xml e baixar dependências (exceto o plugin de deploy)
 COPY pom.xml .
-COPY src ./src
+RUN mvn dependency:resolve -B
 
-# Build do WAR
+# Copiar o código-fonte e buildar o WAR
+COPY src ./src
 RUN mvn clean package -DskipTests
 
-# Etapa 2: Container final com Tomcat
-FROM tomcat:10.1.24-jdk21
+# ===== Etapa 2: Runtime =====
+FROM tomcat:10.1-jdk21-temurin
 
-# Limpar aplicações padrão do Tomcat
+# Remover apps padrão do Tomcat
 RUN rm -rf /usr/local/tomcat/webapps/*
 
 # Copiar WAR da etapa de build
 COPY --from=build /app/target/couxchiken-1.0-SNAPSHOT.war /usr/local/tomcat/webapps/ROOT.war
 
-# Expor porta padrão do Tomcat
+# Expor a porta padrão do Tomcat
 EXPOSE 8080
 
-# Rodar Tomcat em primeiro plano
+# Comando padrão do Tomcat
 CMD ["catalina.sh", "run"]

@@ -1,259 +1,476 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="jakarta.faces.html"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="jakarta.faces.core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
     <h:head>
-        <title>Cardápio - Coux Chicken</title>
-        <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
+        <title>Coux Chicken - Cardápio</title>
+
         <style>
-            body {
-                font-family: 'Poppins', sans-serif;
+            /* ===== Reset Básico ===== */
+            * {
                 margin: 0;
-                background: #fafafa;
+                padding: 0;
+                box-sizing: border-box;
             }
-            header {
-                position: sticky;
-                top: 0;
-                z-index: 1000;
-                background: #d32f2f;
-                color: white;
-                padding: 10px 15px;
+
+            body {
+                background-color: #f4f6f8;
+                font-family: Arial, sans-serif;
+            }
+
+            /* ===== Cabeçalho ===== */
+            .header {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
-            }
-            header h1 {
-                text-align: left;
-                font-size: 20px;
-                margin: 0;
-            }
-            .status {
-                font-size: 14px;
-                font-weight: bold;
+                padding: 15px 30px;
+                background-color: #f8f8f8;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+                flex-wrap: wrap;
+                gap: 15px;
             }
 
-            /* Categorias */
+            .header-left {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .nome-restaurante {
+                font-size: 1.6rem;
+                font-weight: bold;
+                color: #333;
+            }
+
+            .header-center {
+                display: flex;
+                gap: 25px;
+                align-items: center;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .header-center .info {
+                display: flex;
+                align-items: center;
+                font-size: 1rem;
+                color: #555;
+            }
+
+            .header-center .info i {
+                margin-right: 8px;
+                color: #e53935;
+                font-size: 1.2rem;
+            }
+
+            /* ===== Barra de Categorias ===== */
             .categorias {
                 display: flex;
                 justify-content: center;
                 flex-wrap: wrap;
                 gap: 12px;
-                padding: 12px;
-                background: #fff;
-                border-bottom: 1px solid #eee;
-            }
-            .categorias button {
-                flex: 1 1 auto;
-                min-width: 120px;
-                max-width: 200px;
-                border: none;
-                background: linear-gradient(135deg, #ff4d4d, #d32f2f);
-                color: #fff;
-                border-radius: 25px;
-                padding: 8px 16px;
-                cursor: pointer;
-                transition: transform 0.25s ease, box-shadow 0.25s ease;
-                font-weight: 600;
-                font-size: 14px;
-                box-shadow: 0 3px 8px rgba(0,0,0,0.15);
-            }
-            .categorias button:hover {
-                transform: translateY(-3px);
-                box-shadow: 0 6px 14px rgba(0,0,0,0.25);
+                margin: 20px auto;
+                max-width: 900px;
+                padding: 0 10px;
             }
 
-            /* Cards */
-            .p-card {
-                border-radius: 15px;
-                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-                overflow: hidden;
-                transition: transform 0.25s ease, box-shadow 0.25s ease;
-                max-width: 100%;
+            .cat-btn {
+                background-color: #e53935;
+                color: #fff !important;
+                border-radius: 8px;
+                padding: 10px 18px;
+                font-weight: bold;
+                transition: 0.2s;
+                font-size: 0.95rem;
             }
+
+            .cat-btn:hover {
+                background-color: #d32f2f;
+                transform: translateY(-2px);
+            }
+
+            /* ===== Conteúdo Principal ===== */
+            .container {
+                max-width: 1200px;
+                margin: auto;
+                padding: 20px;
+            }
+
+            h2 {
+                text-align: center;
+                margin: 15px 0;
+                font-size: 28px;
+                color: #333;
+            }
+
+            .subtitulo {
+                text-align: center;
+                font-size: 15px;
+                color: #666;
+                margin-bottom: 25px;
+            }
+
+            /* ===== Produtos ===== */
+            .p-card {
+                border-radius: 12px;
+                box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+                transition: transform 0.2s;
+                background: #fff;
+                text-align: left;
+            }
+
             .p-card:hover {
                 transform: translateY(-5px);
-                box-shadow: 0 6px 18px rgba(0,0,0,0.2);
             }
+
+            .p-card .p-card-title {
+                font-size: 18px;
+                font-weight: bold;
+                color: #333;
+            }
+
             .descricao {
                 font-size: 14px;
-                line-height: 1.5;
                 color: #555;
-                margin: 8px 0;
+                margin: 10px 0;
+                min-height: 45px;
             }
+
             .preco {
                 font-size: 16px;
                 font-weight: bold;
-                color: #e53935;
-                margin-bottom: 10px;
+                color: #d32f2f;
+                margin-top: 10px;
             }
 
-            .btn-whatsapp {
-                display: inline-block;
-                background: #25D366;
-                color: #fff;
-                padding: 8px 14px;
-                border-radius: 8px;
-                font-size: 14px;
-                font-weight: bold;
-                text-decoration: none;
-                transition: background 0.2s;
-            }
-            .btn-whatsapp:hover {
-                background: #1ebe57;
-            }
-
+            /* ===== Rodapé ===== */
             footer {
-                margin-top: 30px;
                 text-align: center;
-                padding: 15px;
-                background: #333;
-                color: #fff;
-                font-size: 14px;
+                padding: 20px;
+                background: #f9f9f9;
+                margin-top: 40px;
             }
 
-            /* Responsividade Mobile */
-            @media (max-width: 768px) {
-                header h1 {
-                    font-size: 18px;
-                }
-                .categorias {
+            footer div {
+                margin-top: 10px;
+            }
+
+            /* ===== Responsividade ===== */
+            @media (max-width: 992px) {
+                .header {
                     flex-direction: column;
-                    align-items: center;
+                    text-align: center;
                 }
-                .categorias button {
-                    width: 90%;
-                    font-size: 14px;
-                    padding: 8px;
+
+                .header-center {
+                    flex-direction: column;
+                    gap: 10px;
                 }
+            }
+
+            @media (max-width: 768px) {
+                .nome-restaurante {
+                    font-size: 1.3rem;
+                }
+
+                .cat-btn {
+                    padding: 8px 14px;
+                    font-size: 0.9rem;
+                }
+
+                h2 {
+                    font-size: 24px;
+                }
+
                 .descricao {
                     font-size: 13px;
                 }
-                .preco {
-                    font-size: 15px;
-                }
-                .ui-dialog {
-                    width: 90% !important;
-                    max-width: 400px;
-                }
             }
 
-            /* Cards em grid responsivo */
             @media (max-width: 480px) {
-                .p-dataview .p-dataview-content .p-dataview-grid-item {
+                .header {
+                    padding: 10px 15px;
+                }
+
+                .nome-restaurante {
+                    font-size: 1.1rem;
+                }
+
+                .cat-btn {
+                    width: 100%;
+                    text-align: center;
+                }
+
+                .p-card {
                     width: 100% !important;
-                    margin-bottom: 15px;
                 }
             }
         </style>
     </h:head>
-    <h:body>
-        <h:form id="formCardapio">
-            <!-- Cabeçalho -->
-            <header>
-                <h:graphicImage value="imagens/logo.png" alt="Logo" style="height:50px;" />
-                <h1>Coux Chicken</h1>
-                <span class="status">
-                    <h:outputText value="#{hamburguerBean.aberto()}"/>
-                </span>
-            </header>
 
-            <!-- Categorias -->
-            <div class="categorias">
-                <p:commandButton value="🍔 Hamburgueres" action="#{hamburguerBean.setCategoria('hamburgueres')}" update="produtos"/>
-                <p:commandButton value="🥩 Artesanais" action="#{hamburguerBean.setCategoria('hamburgueresArtesal')}" update="produtos"/>
-                <p:commandButton value="🥤 Bebidas" action="#{hamburguerBean.setCategoria('bebidas')}" update="produtos"/>
-                <p:commandButton value="🌭 Cachorro-Quente" action="#{hamburguerBean.setCategoria('cachorroQuente')}" update="produtos"/>
-                <p:commandButton value="🥟 Pasteis" action="#{hamburguerBean.setCategoria('pasteis')}" update="produtos"/>
-                <p:commandButton value="🍟 Batatas" action="#{hamburguerBean.setCategoria('batata')}" update="produtos"/>
+    <h:body>
+        <!-- ===== Cabeçalho ===== -->
+        <div class="header" style="display:flex; justify-content:space-between; align-items:center; padding:10px 20px; background-color:#fff; box-shadow:0 2px 5px rgba(0,0,0,0.1);">
+
+            <!-- Logo e nome -->
+            <div class="header-left" style="display:flex; align-items:center; gap:10px;">
+                <h:graphicImage value="imagens/logo.png" alt="Logo" style="height:50px;" />
+                <span class="nome-restaurante" style="font-size:1.5em; font-weight:bold; color:#333;">Coux Chicken</span>
             </div>
 
-            <!-- Lista de Produtos -->
-            <h:panelGroup id="produtos">
-                <p:dataView id="dvProdutos"
-                            value="#{hamburguerBean.categoria eq 'hamburgueres' ? hamburguerBean.hamburgueres 
-                                     : hamburguerBean.categoria eq 'hamburgueresArtesal' ? hamburguerBean.hamburgueresArtesanais
-                                     : hamburguerBean.categoria eq 'bebidas' ? hamburguerBean.bebidas
-                                     : hamburguerBean.categoria eq 'cachorroQuente' ? hamburguerBean.cachorrosQuente
-                                     : hamburguerBean.categoria eq 'pasteis' ? hamburguerBean.pasteis
-                                     : hamburguerBean.categoria eq 'batata' ? hamburguerBean.batatas
-                                     : hamburguerBean.hamburgueres}"
-                            var="p"
-                            layout="grid"
-                            paginator="true"
-                            rows="6">
+            <!-- Centro: status, botão e endereço -->
+            <div class="header-center" style="display:flex; align-items:center; gap:30px;">
 
-                    <p:dataViewGridItem>
-                        <!-- Tornar o card clicável -->
-                        <p:commandLink actionListener="#{hamburguerBean.setProdutoSelecionado(p)}"
-                                       update=":formCardapio:dialogProduto"
-                                       oncomplete="PF('dlgProduto').show()"
-                                       style="text-decoration:none; color:inherit;">
+                <!-- Status de funcionamento -->
+                <h:panelGroup id="abertoDiv">
+                    <div class="info" style="display:flex; align-items:center; gap:5px; font-weight:bold; color:green;">
+                        <i class="pi pi-clock"></i>
+                        <span>#{hamburguerBean.aberto()}</span>
+                    </div>
+                </h:panelGroup>
+                <p:poll interval="60" update="abertoDiv" />
 
-                            <p:card styleClass="p-card">
-                                <f:facet name="header">
-                                    <h:graphicImage value="#{p.imagem}" alt="#{p.nome}"
-                                                    style="width:100%; height:180px; object-fit:cover;" />
-                                </f:facet>
+                <!-- Botão de pedido -->
+                <p:commandButton value="Faça seu pedido" 
+                                 styleClass="p-button-success p-button-rounded p-button-lg"
+                                 action="/pedido.xhtml?faces-redirect=true" />
 
+                <!-- Endereço -->
+                <div class="info" style="display:flex; align-items:center; gap:5px; color:#555;">
+                    <i class="pi pi-map-marker"></i>
+                    <span>Rua Leda Mouzinho Quiosque 2, Nova Cruz</span>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ===== Formulário principal ===== -->
+        <h:form id="formCardapio">
+            <!-- Categorias -->
+            <div class="categorias">
+                <p:commandButton value="Hambúrgueres"
+                                 action="#{hamburguerBean.filtrarCategoria}"
+                                 styleClass="cat-btn"
+                                 process="@this"
+                                 update="formCardapio">
+                    <f:setPropertyActionListener target="#{hamburguerBean.categoria}" value="hamburgueres"/>
+                </p:commandButton>
+
+                <p:commandButton value="Bebidas"
+                                 action="#{hamburguerBean.filtrarCategoria}"
+                                 styleClass="cat-btn"
+                                 process="@this"
+                                 update="formCardapio">
+                    <f:setPropertyActionListener target="#{hamburguerBean.categoria}" value="bebidas"/>
+                </p:commandButton>
+
+                <p:commandButton value="Hambúrguer Artesanal"
+                                 action="#{hamburguerBean.filtrarCategoria}"
+                                 styleClass="cat-btn"
+                                 process="@this"
+                                 update="formCardapio">
+                    <f:setPropertyActionListener target="#{hamburguerBean.categoria}" value="hamburgueresArtesal"/>
+                </p:commandButton>
+
+                <p:commandButton value="Pasteis"
+                                 action="#{hamburguerBean.filtrarCategoria}"
+                                 styleClass="cat-btn"
+                                 process="@this"
+                                 update="formCardapio">
+                    <f:setPropertyActionListener target="#{hamburguerBean.categoria}" value="pasteis"/>
+                </p:commandButton>
+
+                <p:commandButton value="Cachorro-Quente"
+                                 action="#{hamburguerBean.filtrarCategoria}"
+                                 styleClass="cat-btn"
+                                 process="@this"
+                                 update="formCardapio">
+                    <f:setPropertyActionListener target="#{hamburguerBean.categoria}" value="cachorroQuente"/>
+                </p:commandButton>
+
+                <p:commandButton value="Batata"
+                                 action="#{hamburguerBean.filtrarCategoria}"
+                                 styleClass="cat-btn"
+                                 process="@this"
+                                 update="formCardapio">
+                    <f:setPropertyActionListener target="#{hamburguerBean.categoria}" value="batata"/>
+                </p:commandButton>
+            </div>
+
+            <!-- ===== Produtos ===== -->
+            <div class="container">
+
+                <h2>Produtos</h2>
+
+                <h:panelGroup rendered="#{hamburguerBean.hamburguer}">
+                    <div class="subtitulo">
+                        Nossos produtos são feitos diariamente com ingredientes frescos e selecionados.
+                    </div>
+                    <p:dataView id="dvProdutosHamburguer" value="#{hamburguerBean.hamburgueres}" var="p"
+                                layout="grid" rows="7" paginator="true">
+                        <p:dataViewGridItem>
+                            <p:card style="width: 300px; margin: auto;">
+                                <h:graphicImage value="#{p.imagem}" 
+                                                style="width:100%; height:180px; object-fit:cover; border-radius: 10px 10px 0 0;" />
                                 <f:facet name="title">
                                     <h:outputText value="#{p.nome}" />
                                 </f:facet>
-
                                 <div class="descricao">
                                     <h:outputText value="#{p.descricao}" />
                                 </div>
-
                                 <div class="preco">
+                                    <h:outputText value="A partir de: " />
                                     <h:outputText value="#{p.preco}">
-                                        <f:convertNumber pattern="R$ #0.00"/>
+                                        <f:convertNumber pattern="R$ 00.00"/>
                                     </h:outputText>
                                 </div>
                             </p:card>
-                        </p:commandLink>
-                    </p:dataViewGridItem>
-                </p:dataView>
-            </h:panelGroup>
+                        </p:dataViewGridItem>
+                    </p:dataView>
+                </h:panelGroup>
 
-            <!-- Pop-up de Detalhes do Produto -->
-            <p:dialog id="dialogProduto" header="Detalhes do Produto"
-                      widgetVar="dlgProduto"
-                      modal="true" resizable="false"
-                      closable="true" draggable="false"
-                      width="450">
+                <h:panelGroup rendered="#{hamburguerBean.hamburguerArtesanal}">
+                    <div class="subtitulo">
+                        Nossos produtos são feitos diariamente com ingredientes frescos e selecionados.
+                    </div>
+                    <p:dataView id="dvProdutosHamburguerArtesanal" value="#{hamburguerBean.hamburgueresArtesanais}" var="p"
+                                layout="grid" rows="6" paginator="true">
+                        <p:dataViewGridItem>
+                            <p:card style="width: 300px; margin: auto;">
+                                <h:graphicImage value="#{p.imagem}" 
+                                                style="width:100%; height:180px; object-fit:cover; border-radius: 10px 10px 0 0;" />
+                                <f:facet name="title">
+                                    <h:outputText value="#{p.nome}" />
+                                </f:facet>
+                                <div class="descricao">
+                                    <h:outputText value="#{p.descricao}" />
+                                </div>
+                                <div class="preco">
+                                    <h:outputText value="A partir de: " />
+                                    <h:outputText value="#{p.preco}">
+                                        <f:convertNumber pattern="R$ 00.00"/>
+                                    </h:outputText>
+                                </div>
+                            </p:card>
+                        </p:dataViewGridItem>
+                    </p:dataView>
+                </h:panelGroup>
 
-                <h:panelGrid columns="1" cellpadding="6" style="text-align:center;">
-                    <h:graphicImage value="#{hamburguerBean.produtoSelecionado.imagem}"
-                                    style="width:100%; height:250px; object-fit:cover; border-radius:10px;" />
+                <h:panelGroup rendered="#{hamburguerBean.bebida}">
+                    <div class="subtitulo">
+                        Nossas bebidas são sempre servidas geladinhas para o melhor atendimento para o cliente.
+                    </div>
+                    <p:dataView id="dvProdutosBebida" value="#{hamburguerBean.bebidas}" var="p"
+                                layout="grid" rows="9" paginator="true">
+                        <p:dataViewGridItem>
+                            <p:card style="width: 300px; margin: auto;">
+                                <h:graphicImage value="#{p.imagem}" 
+                                                style="width:100%; height:180px; object-fit:cover; border-radius: 10px 10px 0 0;" />
+                                <f:facet name="title">
+                                    <h:outputText value="#{p.nome}" />
+                                </f:facet>
+                                <div class="descricao">
+                                    <h:outputText value="#{p.descricao}" />
+                                </div>
+                                <div class="preco">
+                                    <h:outputText value="A partir de: " />
+                                    <h:outputText value="#{p.preco}">
+                                        <f:convertNumber pattern="R$ 00.00"/>
+                                    </h:outputText>
+                                </div>
+                            </p:card>
+                        </p:dataViewGridItem>
+                    </p:dataView>
+                </h:panelGroup>
 
-                    <h2 style="margin:10px 0; color:#d32f2f;">
-                        <h:outputText value="#{hamburguerBean.produtoSelecionado.nome}" />
-                    </h2>
+                <h:panelGroup rendered="#{hamburguerBean.pastel}">
+                    <div class="subtitulo">
+                        Nossos produtos são feitos diariamente com ingredientes frescos, selecionados e assados na hora.
+                    </div>
+                    <p:dataView id="dvProdutosPastel" value="#{hamburguerBean.pasteis}" var="p"
+                                layout="grid" rows="9" paginator="true">
+                        <p:dataViewGridItem>
+                            <p:card style="width: 300px; margin: auto;">
+                                <h:graphicImage value="#{p.imagem}" 
+                                                style="width:100%; height:180px; object-fit:cover; border-radius: 10px 10px 0 0;" />
+                                <f:facet name="title">
+                                    <h:outputText value="#{p.nome}" />
+                                </f:facet>
+                                <div class="descricao">
+                                    <h:outputText value="#{p.descricao}" />
+                                </div>
+                                <div class="preco">
+                                    <h:outputText value="A partir de: " />
+                                    <h:outputText value="#{p.preco}">
+                                        <f:convertNumber pattern="R$ 00.00"/>
+                                    </h:outputText>
+                                </div>
+                            </p:card>
+                        </p:dataViewGridItem>
+                    </p:dataView>
+                </h:panelGroup>
 
-                    <p style="font-size:14px; color:#555;">
-                        <h:outputText value="#{hamburguerBean.produtoSelecionado.descricao}" />
-                    </p>
+                <h:panelGroup rendered="#{hamburguerBean.cachorroQuente}">
+                    <div class="subtitulo">
+                        Nossos produtos são feitos diariamente com ingredientes frescos, selecionados e assados na hora.
+                    </div>
+                    <p:dataView id="dvProdutosCachorroQuente" value="#{hamburguerBean.cachorrosQuente}" var="p"
+                                layout="grid" rows="9" paginator="true">
+                        <p:dataViewGridItem>
+                            <p:card style="width: 300px; margin: auto;">
+                                <h:graphicImage value="#{p.imagem}" 
+                                                style="width:100%; height:180px; object-fit:cover; border-radius: 10px 10px 0 0;" />
+                                <f:facet name="title">
+                                    <h:outputText value="#{p.nome}" />
+                                </f:facet>
+                                <div class="descricao">
+                                    <h:outputText value="#{p.descricao}" />
+                                </div>
+                                <div class="preco">
+                                    <h:outputText value="A partir de: " />
+                                    <h:outputText value="#{p.preco}">
+                                        <f:convertNumber pattern="R$ 00.00"/>
+                                    </h:outputText>
+                                </div>
+                            </p:card>
+                        </p:dataViewGridItem>
+                    </p:dataView>
+                </h:panelGroup>
 
-                    <h3 style="color:#e53935; margin:10px 0;">
-                        <h:outputText value="#{hamburguerBean.produtoSelecionado.preco}">
-                            <f:convertNumber pattern="R$ #0.00"/>
-                        </h:outputText>
-                    </h3>
-
-                    <a href="https://wa.me/5584994537977?text=Quero%20pedir%20o%20#{hamburguerBean.produtoSelecionado.nome}"
-                       target="_blank"
-                       class="btn-whatsapp">
-                        <i class="pi pi-whatsapp"></i> Pedir agora
-                    </a>
-                </h:panelGrid>
-            </p:dialog>
+                <h:panelGroup rendered="#{hamburguerBean.batata}">
+                    <div class="subtitulo">
+                        Nossos produtos são feitos diariamente com ingredientes frescos, selecionados e assados na hora.
+                    </div>
+                    <p:dataView id="dvProdutosBatata" value="#{hamburguerBean.batatas}" var="p"
+                                layout="grid" rows="9" paginator="true">
+                        <p:dataViewGridItem>
+                            <p:card style="width: 300px; margin: auto;">
+                                <h:graphicImage value="#{p.imagem}" 
+                                                style="width:100%; height:180px; object-fit:cover; border-radius: 10px 10px 0 0;" />
+                                <f:facet name="title">
+                                    <h:outputText value="#{p.nome}" />
+                                </f:facet>
+                                <div class="descricao">
+                                    <h:outputText value="#{p.descricao}" />
+                                </div>
+                                <div class="preco">
+                                    <h:outputText value="A partir de: " />
+                                    <h:outputText value="#{p.preco}">
+                                        <f:convertNumber pattern="R$ 00.00"/>
+                                    </h:outputText>
+                                </div>
+                            </p:card>
+                        </p:dataViewGridItem>
+                    </p:dataView>
+                </h:panelGroup>
+            </div>
         </h:form>
 
         <!-- Rodapé -->
         <footer>
-            © 2025 Coux Chicken - Todos os direitos reservados | 
-            <a href="https://www.instagram.com/coux_chiken_hamburgueria/" target="_blank" style="color:#25D366;text-decoration:none;">Instagram</a>
-            <br/><br/>
             <div style="color:#bbb; font-size:0.9rem;">
                 Desenvolvido por <strong>FS Tech</strong>
             </div>
