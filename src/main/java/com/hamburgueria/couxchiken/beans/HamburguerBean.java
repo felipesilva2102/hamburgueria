@@ -55,8 +55,6 @@ public class HamburguerBean implements Serializable {
         this.bebidas = materiais.preencherBebidas();
     }
 
-    
-
     public String aberto() {
         // Define o fuso horário de São Paulo (Brasília)
         ZoneId fusoBrasil = ZoneId.of("America/Sao_Paulo");
