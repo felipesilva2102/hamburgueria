@@ -9,6 +9,7 @@ import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import java.io.IOException;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -28,13 +29,15 @@ public class PedidoBean implements Serializable {
 
     private transient Pedido pedido;
 
+    private boolean entrega = true;
+
     private transient List<Material> hamburgueres;
     private transient List<Material> hamburgueresArtesanais;
     private transient List<Material> bebidas;
     private transient List<Material> cachorrosQuente;
     private transient List<Material> pasteis;
     private transient List<Material> batatas;
-    
+
     StringBuilder resumo = new StringBuilder();
 
     @Inject
@@ -65,25 +68,40 @@ public class PedidoBean implements Serializable {
         }
     }
 
-    public void finalizarPedido() {
+    public boolean finalizarPedido() {
+
         if (pedido.getItens().isEmpty()) {
             FacesContext.getCurrentInstance().addMessage(null,
-                    new FacesMessage(FacesMessage.SEVERITY_WARN, "Atenção", "Nenhum item selecionado no pedido."));
-            return;
+                    new FacesMessage(FacesMessage.SEVERITY_WARN,
+                            "Atenção", "Nenhum item selecionado no pedido."));
+            return false;
         }
-        
-        if (pedido.getNome() == null || pedido.getNome().isBlank()
-                || pedido.getTelefone() == null || pedido.getTelefone().isBlank()
-                || pedido.getEndereco() == null || pedido.getEndereco().isBlank()) {
 
+        // Nome é sempre obrigatório
+        if (pedido.getNome() == null || pedido.getNome().isBlank()) {
             FacesContext.getCurrentInstance().addMessage(null,
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro", "Por favor, preencha seus dados antes de finalizar o pedido."));
-            return;
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                            "Erro", "Informe seu nome para finalizar o pedido."));
+            return false;
         }
+
+        // Se for entrega, telefone e endereço são obrigatórios
+        if (entrega) {
+            if (pedido.getTelefone() == null || pedido.getTelefone().isBlank()
+                    || pedido.getEndereco() == null || pedido.getEndereco().isBlank()) {
+
+                FacesContext.getCurrentInstance().addMessage(null,
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                "Erro", "Para entrega, informe telefone e endereço."));
+                return false;
+            }
+        }
+
+        resumo = new StringBuilder(); 
 
         DecimalFormat df = new DecimalFormat("0.00");
         double total = pedido.calcularTotal();
-        
+
         resumo.append("📋 *Resumo do Pedido*\n\n");
 
         for (Material item : pedido.getItens()) {
@@ -92,23 +110,47 @@ public class PedidoBean implements Serializable {
                     .append(" - Qtd: ").append(item.getQuantidade())
                     .append(" - R$ ").append(df.format(subtotal)).append("\n");
         }
-
+        if(entrega) {
+            total = total + 2;
+        }
         resumo.append("\n💰 *Total:* R$ ").append(df.format(total)).append("\n\n");
-        resumo.append("👤 Nome: ").append(pedido.getNome()).append("\n");
-        resumo.append("📱 Telefone: ").append(pedido.getTelefone()).append("\n");
-        resumo.append("🏠 Endereço: ").append(pedido.getEndereco()).append("\n");
+        resumo.append("👤 *Nome:* ").append(pedido.getNome()).append("\n");
+        
+        if(pedido.getTelefone() != null || !"".equals(pedido.getTelefone()))
+            resumo.append("📱 *Telefone:* ").append(pedido.getTelefone()).append("\n");
+        
+        if(pedido.getEndereco()!= null || !"".equals(pedido.getEndereco()))
+            resumo.append("🏠 *Endereço:* ").append(pedido.getEndereco()).append("\n");
 
         if (pedido.getObservacao() != null && !pedido.getObservacao().isBlank()) {
-            resumo.append("📝 Observações: ").append(pedido.getObservacao()).append("\n");
+            resumo.append("📝 *Observações:* ").append(pedido.getObservacao()).append("\n");
+        }
+        
+        if(entrega == true) {
+            resumo.append("🚚 *Entrega* ").append("+ R$02,00").append("\n");
         }
 
-        // Mensagem JSF
-        FacesContext.getCurrentInstance().addMessage(null,
-                new FacesMessage(FacesMessage.SEVERITY_INFO, "Pedido Finalizado", resumo.toString()));
+        return true;
+    }
+
+    public void abrirWhatsapp() throws IOException {
+
+        if (!finalizarPedido()) {
+            return; // ❌ não abre WhatsApp
+        }
+
+        String url = "https://wa.me/5584994537977?text="
+                + URLEncoder.encode(resumo.toString(), StandardCharsets.UTF_8);
+
+        FacesContext.getCurrentInstance()
+                .getExternalContext()
+                .redirect(url);
     }
 
     public Double calcularTotal() {
-        return pedido.calcularTotal();
+        double valor = 0;
+        if(entrega) valor = 2;
+        return pedido.calcularTotal() + valor;
     }
 
     public String getMensagemWhatsapp() {
