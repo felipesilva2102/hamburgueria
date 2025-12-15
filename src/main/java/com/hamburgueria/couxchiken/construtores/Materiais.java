@@ -44,7 +44,7 @@ public class Materiais {
         hamburgueresArtesanais.add(new Material("Hambúrguer Tentação", "hamburguerArtesanal/Tentação.jpg", 18.00, "Carne de sol desfiada, ovo, fatias de bacon, queijo mussarea, fatias de picles, alface, tomate, cebola e pão brioche.", 0));
         hamburgueresArtesanais.add(new Material("Hambúrguer 4 Queijos", "hamburguerArtesanal/Queijos.jpg", 18.00, "Duas carnes de hambúrguer artesanal, queijo catupiry, queijo mussarela, queijo gorgonzola, queijo cheddar e pão brioche.", 0));
         hamburgueresArtesanais.add(new Material("Hambúrguer de Frango", "hamburguerArtesanal/Frango.jpg", 13.00, "Carne de frango astesanal, queijo mussarela, alface, tomate, cebola e pão brioche.", 0));
-        hamburgueresArtesanais.add(new Material("Baurú Especial", "hamburguerArtesanal/Especial.jpg", 15.00, "Carne de hambúrguer artesanal, ovo, queijo, presunto, requeijão, milho, ervilha, alface, tomate e pão brioche.", 0));
+        hamburgueresArtesanais.add(new Material("Baurú Especial", "hamburguerArtesanal/Especial.jpg", 16.00, "Carne de hambúrguer artesanal, ovo, queijo, presunto, requeijão, milho, ervilha, alface, tomate e pão brioche.", 0));
 
         return hamburgueresArtesanais;
     }
